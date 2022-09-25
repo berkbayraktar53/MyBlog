@@ -1,0 +1,23 @@
+﻿@model List<Blog>
+<div class="tech-btm">
+    @foreach (var blog in Model)
+    {
+        <div class="blog-grids row mb-3">
+            <div class="col-md-5 blog-grid-left">
+                <a href="/Blog/Detail/@blog.BlogId">
+                    <img src="@blog.Image" class="card-img-top img-fluid" alt="">
+                </a>
+            </div>
+            <div class="col-md-7 blog-grid-right">
+                <h5>
+                    <a href="/Blog/Detail/@blog.BlogId">@blog.Content.Substring(0, @blog.Content.Substring(0, 50).LastIndexOf(" ")) ...</a>
+                </h5>
+                <div class="sub-meta">
+                    <span>
+                        <i class="far fa-clock"></i> @blog.Date.ToShortDateString()
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
