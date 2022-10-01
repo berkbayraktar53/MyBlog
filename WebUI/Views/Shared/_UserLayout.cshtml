@@ -1,8 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="tr">
-@await Html.PartialAsync("~/Views/Shared/UserLayoutPartial/_HeadPartial.cshtml")
+<head>
+    @await Html.PartialAsync("~/Views/Shared/UserLayoutPartial/_HeadPartial.cshtml")
+</head>
 <body>
-    @await Html.PartialAsync("~/Views/Shared/UserLayoutPartial/_HeaderPartial.cshtml")
+    <header>
+        @await Html.PartialAsync("~/Views/Shared/UserLayoutPartial/_HeaderPartial.cshtml")
+        @await Html.PartialAsync("/Views/Shared/UserLayoutPartial/_NavbarPartial.cshtml")
+    </header>
     @RenderBody()
     @await Html.PartialAsync("~/Views/Shared/UserLayoutPartial/_FooterPartial.cshtml")
     @await Html.PartialAsync("~/Views/Shared/UserLayoutPartial/_ScriptPartial.cshtml")
