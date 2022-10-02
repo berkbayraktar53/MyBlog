@@ -1,6 +1,13 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Entities.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebUI.Controllers
 {
@@ -8,10 +15,12 @@ namespace WebUI.Controllers
     public class BlogController : Controller
     {
         private readonly IBlogService _blogService;
+        private readonly ICategoryService _categoryService;
 
-        public BlogController(IBlogService blogService)
+        public BlogController(IBlogService blogService, ICategoryService categoryService)
         {
             _blogService = blogService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
@@ -25,6 +34,48 @@ namespace WebUI.Controllers
             @ViewBag.commentId = id;
             var values = _blogService.GetListById(id);
             return View(values);
+        }
+
+        public IActionResult BlogListByWriter()
+        {
+            var values = _blogService.GetListWithCategoryByWriter(1);
+            return View(values);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.Name,
+                                                       Value = x.CategoryId.ToString()
+                                                   }).ToList();
+            ViewBag.category = categoryValues;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Blog blog)
+        {
+            BlogValidator blogValidator = new BlogValidator();
+            ValidationResult result = blogValidator.Validate(blog);
+            if (result.IsValid)
+            {
+                blog.Status = true;
+                blog.Date = DateTime.Parse(DateTime.Now.ToShortDateString());
+                blog.WriterId = 1;
+                _blogService.Add(blog);
+                return RedirectToAction("BlogListByWriter", "Blog");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
     }
 }

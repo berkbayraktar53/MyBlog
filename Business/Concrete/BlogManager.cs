@@ -39,5 +39,15 @@ namespace Business.Concrete
         {
             return _blogDal.GetList().TakeLast(3).ToList();
         }
+
+        public void Add(Blog blog)
+        {
+            _blogDal.Add(blog);
+        }
+
+        public List<Blog> GetListWithCategoryByWriter(int writerID)
+        {
+            return _blogDal.GetListWithCategoryByWriter(writerID);
+        }
     }
 }
