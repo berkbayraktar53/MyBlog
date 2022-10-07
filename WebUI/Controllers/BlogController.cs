@@ -77,5 +77,37 @@ namespace WebUI.Controllers
             }
             return View();
         }
+
+        public IActionResult Delete(int id)
+        {
+            var values = _blogService.GetById(id);
+            _blogService.Delete(values);
+            return RedirectToAction("BlogListByWriter");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var values = _blogService.GetById(id);
+            List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.Name,
+                                                       Value = x.CategoryId.ToString()
+                                                   }).ToList();
+            ViewBag.category = categoryValues;
+            return View(values);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Blog blog)
+        {
+            var value = _blogService.GetById(blog.BlogId);
+            blog.WriterId = 1;
+            blog.Date = value.Date;
+            blog.Status = true;
+            _blogService.Update(blog);
+            return RedirectToAction("BlogListByWriter");
+        }
     }
 }

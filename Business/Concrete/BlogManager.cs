@@ -49,5 +49,20 @@ namespace Business.Concrete
         {
             return _blogDal.GetListWithCategoryByWriter(writerID);
         }
+
+        public void Delete(Blog blog)
+        {
+            _blogDal.Delete(blog);
+        }
+
+        public Blog GetById(int id)
+        {
+            return _blogDal.GetById(id);
+        }
+
+        public void Update(Blog blog)
+        {
+            _blogDal.Update(blog);
+        }
     }
 }
