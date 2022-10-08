@@ -4,14 +4,16 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20221008133125_mig_added_column_to_comment_table")]
+    partial class mig_added_column_to_comment_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,30 +80,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("WriterId");
 
                     b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("Entities.Concrete.BlogRating", b =>
-                {
-                    b.Property<int>("BlogRatingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RatingCount")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TotalScore")
-                        .HasColumnType("int");
-
-                    b.HasKey("BlogRatingId");
-
-                    b.ToTable("BlogRatings");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Category", b =>

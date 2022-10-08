@@ -23,5 +23,10 @@ namespace Business.Concrete
         {
             return _writerDal.GetList();
         }
+
+        public List<Writer> GetWriterById(int id)
+        {
+            return _writerDal.GetList(x => x.WriterId == id);
+        }
     }
 }

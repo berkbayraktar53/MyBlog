@@ -7,8 +7,8 @@
     <div class="container-scroller">
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="index.html"><img src="~/templates/writer/assets/images/logo.svg" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="~/templates/writer/assets/images/logo-mini.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo" href="/Writer/Dashboard"><img src="~/templates/writer/assets/images/logo.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="/Writer/Dashboard"><img src="~/templates/writer/assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -84,7 +84,7 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item nav-profile">
-                        <a href="#" class="nav-link">
+                        <a class="nav-link">
                             <div class="nav-profile-image">
                                 <img src="~/templates/writer/assets/images/faces/face1.jpg" alt="profile">
                                 <span class="login-status online"></span>
@@ -93,31 +93,30 @@
                                 <span class="font-weight-bold mb-2">Yazar Adı Soyadı</span>
                                 <span class="text-secondary text-small">Yazılım Mühendisi</span>
                             </div>
-                            <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            <span class="menu-title">Dashboard</span>
+                        <a class="nav-link" href="/Writer/Dashboard">
+                            <span class="menu-title">Anasayfa</span>
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/icons/mdi.html">
+                        <a class="nav-link" href="/Writer/Profile">
                             <span class="menu-title">Profilim</span>
-                            <i class="mdi mdi-contacts menu-icon"></i>
+                            <i class="mdi mdi-account-circle menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/Blog/BlogListByWriter">
                             <span class="menu-title">Bloglarım</span>
-                            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                            <i class="mdi mdi-file-document-box menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/charts/chartjs.html">
+                        <a class="nav-link" href="/Blog/Add">
                             <span class="menu-title">Yeni Blog</span>
-                            <i class="mdi mdi-chart-bar menu-icon"></i>
+                            <i class="mdi mdi-file-check menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
