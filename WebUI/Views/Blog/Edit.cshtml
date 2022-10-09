@@ -7,22 +7,22 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title" style="text-align:center">Yeni Blog Ekle</h4>
+            <h4 class="card-title" style="text-align:center">Blog Düzenle</h4>
             @using (Html.BeginForm("Edit", "Blog", FormMethod.Post))
             {
-                <div class="form-group">
+                <div class="form-group" hidden>
                     @Html.Label("Blog Id")
                     @Html.TextBoxFor(x => x.BlogId, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Blog Resmi")
+                    @Html.TextBoxFor(x => x.Image, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Image)
                 </div>
                 <div class="form-group">
                     @Html.Label("Blog Başlığı")
                     @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.Title)
-                </div>
-                <div class="form-group">
-                    @Html.Label("Blog Görseli")
-                    @Html.TextBoxFor(x => x.Image, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(x => x.Image)
                 </div>
                 <div class="form-group">
                     @Html.Label("Kategori")
@@ -33,8 +33,28 @@
                     @Html.TextAreaFor(x => x.Content, 10, 3, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.Content)
                 </div>
-                <button type="submit" class="btn btn-gradient-info mr-2">Yazıyı Kaydet</button>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Durum</label>
+                    <div class="col-sm-4">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="Status" checked="checked"> Aktif
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="Status"> Pasif
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center">
+                    <button type="submit" class="btn btn-success btn-rounded btn-fw mr-2" style="">Kaydet</button>
+                </div>
             }
         </div>
     </div>
 </div>
+<script src="~/templates/writer/assets/vendors/js/vendor.bundle.base.js"></script>

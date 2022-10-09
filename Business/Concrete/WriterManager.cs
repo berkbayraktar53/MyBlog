@@ -19,6 +19,16 @@ namespace Business.Concrete
             _writerDal.Add(writer);
         }
 
+        public void Delete(Writer writer)
+        {
+            _writerDal.Delete(writer);
+        }
+
+        public Writer GetById(int id)
+        {
+            return _writerDal.GetById(id);
+        }
+
         public List<Writer> GetList()
         {
             return _writerDal.GetList();
@@ -27,6 +37,11 @@ namespace Business.Concrete
         public List<Writer> GetWriterById(int id)
         {
             return _writerDal.GetList(x => x.WriterId == id);
+        }
+
+        public void Update(Writer writer)
+        {
+            _writerDal.Update(writer);
         }
     }
 }

@@ -7,14 +7,14 @@
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title" style="text-align:center">Yazarın Blogları</h4>
+            <h4 class="card-title" style="text-align:center">Blog Listesi</h4>
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Başlık</th>
-                        <th>Tarih</th>
+                    <tr style="text-align:center">
+                        <th>Blog Resmi</th>
+                        <th>Blog Başlığı</th>
                         <th>Kategori</th>
+                        <th>Tarih</th>
                         <th>Durum</th>
                         <th>Düzenle</th>
                         <th>Sil</th>
@@ -23,11 +23,11 @@
                 <tbody>
                     @foreach (var blog in Model)
                     {
-                        <tr>
-                            <th>@blog.BlogId</th>
+                        <tr style="text-align:center">
+                            <td><img src="@blog.Image" alt="image" /></td>
                             <td>@blog.Title</td>
-                            <td>@blog.Date.ToShortDateString()</td>
                             <td>@blog.Category.Name</td>
+                            <td>@blog.Date.ToString("dd/MM/yyyy")</td>
                             <td>
                                 @if (blog.Status)
                                 {
@@ -38,14 +38,16 @@
                                     <span class="badge badge-secondary">Pasif</span>
                                 }
                             </td>
-                            <td><a href="/Blog/Edit/@blog.BlogId" class="btn btn-gradient-warning">Düzenle</a></td>
-                            <td><a href="/Blog/Delete/@blog.BlogId" onclick="return confirm('Silmek istediğine emin misin?');" class="btn btn-gradient-danger"><i class="mdi mdi-delete-forever"></i></a></td>
+                            <td><a href="/Blog/Edit/@blog.BlogId" class="badge badge-warning"><i class="mdi mdi-border-color"></i></a></td>
+                            <td><a href="/Blog/Delete/@blog.BlogId" class="badge badge-danger"><i class="mdi mdi-delete"></i></a></td>
                         </tr>
                     }
                 </tbody>
             </table>
             <br />
-            <a href="/Blog/Add" class="btn btn-gradient-info">Yeni Blog Ekle</a>
+            <div style="text-align:center">
+                <a href="/Blog/Add" class="btn btn-info btn-rounded btn-fw mr-2">Yeni Blog Ekle</a>
+            </div>
         </div>
     </div>
 </div>

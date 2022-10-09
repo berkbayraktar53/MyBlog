@@ -1,6 +1,10 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Entities.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace WebUI.Controllers
 {
@@ -9,11 +13,13 @@ namespace WebUI.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
+        private readonly IWriterService _writerService;
 
-        public WriterController(IBlogService blogService, ICategoryService categoryService)
+        public WriterController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService)
         {
             _blogService = blogService;
             _categoryService = categoryService;
+            _writerService = writerService;
         }
 
         public IActionResult Index()
@@ -29,8 +35,31 @@ namespace WebUI.Controllers
             return View();
         }
 
-        public IActionResult Profile()
+        [HttpGet]
+        public IActionResult EditProfile()
         {
+            var values = _writerService.GetById(1);
+            return View(values);
+        }
+
+        [HttpPost]
+        public IActionResult EditProfile(Writer writer)
+        {
+            WriterValidator validationRules = new();
+            ValidationResult result = validationRules.Validate(writer);
+            if (result.IsValid)
+            {
+                writer.Status = true;
+                _writerService.Update(writer);
+                return RedirectToAction("EditProfile", "Writer");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
             return View();
         }
     }

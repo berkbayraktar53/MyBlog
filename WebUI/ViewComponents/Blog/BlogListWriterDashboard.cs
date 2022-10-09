@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace WebUI.ViewComponents.Blog
 {
@@ -14,7 +15,7 @@ namespace WebUI.ViewComponents.Blog
 
         public IViewComponentResult Invoke()
         {
-            var result = _blogService.GetListWithCategory();
+            var result = _blogService.GetListWithCategory().TakeLast(10).ToList();
             return View(result);
         }
     }

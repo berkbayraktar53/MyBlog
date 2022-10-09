@@ -7,23 +7,23 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th> # </th>
-                                <th> Başlık </th>
-                                <th> Kategori </th>
-                                <th> Tarih </th>
-                                <th> Detaylar </th>
+                            <tr style="text-align:center">
+                                <th>Blog Resmi</th>
+                                <th>Blog Başlığı</th>
+                                <th>Kategori</th>
+                                <th>Tarih</th>
+                                <th>Detaylar</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var blog in Model)
                             {
-                                <tr>
+                                <tr style="text-align:center">
                                     <td><img src="@blog.Image" class="mr-2" alt="image"></td>
                                     <td>@blog.Title</td>
                                     <td><label class="badge badge-gradient-success">@blog.Category.Name</label></td>
                                     <td> @(((DateTime)blog.Date).ToString("dd-MM-yyyy")) </td>
-                                    <td> <a class="btn btn-dark" href="/Blog/Detail/@blog.BlogId">Detaylar</a> </td>
+                                    <td> <a class="badge badge-info" target="_blank" href="/Blog/Detail/@blog.BlogId"><i class="mdi mdi-share"></i></a> </td>
                                 </tr>
                             }
                         </tbody>
