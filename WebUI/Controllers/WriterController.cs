@@ -5,6 +5,8 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
@@ -61,6 +63,33 @@ namespace WebUI.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddWriter()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddWriter(WriterProfileImage writerProfileImage, Writer writer)
+        {
+            if (writerProfileImage.Image != null)
+            {
+                var extension = Path.GetExtension(writerProfileImage.Image.FileName);
+                var newImageName = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterImageFiles/", newImageName);
+                var stream = new FileStream(location, FileMode.Create);
+                writerProfileImage.Image.CopyTo(stream);
+                writer.Image = newImageName;
+            }
+            writer.Email = writerProfileImage.Email;
+            writer.Name = writerProfileImage.Name;
+            writer.Password = writerProfileImage.Password;
+            writer.About = writerProfileImage.About;
+            writer.Status = true;
+            _writerService.Add(writer);
+            return RedirectToAction("Dashboard", "Writer");
         }
     }
 }
