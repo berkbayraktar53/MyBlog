@@ -5,17 +5,17 @@ namespace WebUI.ViewComponents.Writer
 {
     public class WriterMessageNotification : ViewComponent
     {
-        private readonly IMessageService _messageService;
+        private readonly IMessageFkService _messageFkService;
 
-        public WriterMessageNotification(IMessageService messageService)
+        public WriterMessageNotification(IMessageFkService messageFkService)
         {
-            _messageService = messageService;
+            _messageFkService = messageFkService;
         }
 
         public IViewComponentResult Invoke()
         {
-            string receiver = "keremberk53@gmail.com";
-            var values = _messageService.GetInboxListByWriter(receiver);
+            int id = 1;
+            var values = _messageFkService.GetInboxListByWriter(id);
             return View(values);
         }
     }

@@ -1,0 +1,18 @@
+﻿@model MessageFk
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<h1>Mesaj Detayı</h1>
+<br />
+@Html.Label("Mesaj Id")
+@Html.TextBoxFor(x => x.MessageFkId, new { @class = "form-control" })
+<br />
+@Html.Label("Mesaj Başlığı")
+@Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
+<br />
+@Html.Label("Mesaj İçeriği")
+@Html.TextAreaFor(x => x.Detail, 10, 3, new { @class = "form-control" })
+<br />
+<a href="/Message/InBox" class="btn btn-success">Mesajlara Dön</a>

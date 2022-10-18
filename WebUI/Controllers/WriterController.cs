@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
+using System.Linq;
 using WebUI.Models;
 
 namespace WebUI.Controllers
 {
-    [AllowAnonymous]
     public class WriterController : Controller
     {
         private readonly IBlogService _blogService;
@@ -24,11 +24,6 @@ namespace WebUI.Controllers
             _writerService = writerService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Dashboard()
         {
             ViewBag.TotalBlog = _blogService.GetList().Count;
@@ -40,7 +35,9 @@ namespace WebUI.Controllers
         [HttpGet]
         public IActionResult EditProfile()
         {
-            var values = _writerService.GetById(1);
+            var userEmail = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Email == userEmail).Select(y => y.WriterId).FirstOrDefault();
+            var values = _writerService.GetById(writerId);
             return View(values);
         }
 

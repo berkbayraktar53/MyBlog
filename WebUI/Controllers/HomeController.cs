@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
-    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly IBlogService _blogService;
@@ -14,6 +13,7 @@ namespace WebUI.Controllers
             _blogService = blogService;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values = _blogService.GetListWithCategory();

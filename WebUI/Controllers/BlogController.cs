@@ -11,24 +11,27 @@ using System.Linq;
 
 namespace WebUI.Controllers
 {
-    [AllowAnonymous]
     public class BlogController : Controller
     {
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
+        private readonly IWriterService _writerService;
 
-        public BlogController(IBlogService blogService, ICategoryService categoryService)
+        public BlogController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService)
         {
             _blogService = blogService;
             _categoryService = categoryService;
+            _writerService = writerService;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values = _blogService.GetListWithCategory();
             return View(values);
         }
 
+        [AllowAnonymous]
         public IActionResult Detail(int id)
         {
             @ViewBag.commentId = id;
@@ -38,6 +41,8 @@ namespace WebUI.Controllers
 
         public IActionResult BlogListByWriter()
         {
+            var email = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.WriterId).FirstOrDefault();
             var values = _blogService.GetListWithCategoryByWriter(1);
             return View(values);
         }

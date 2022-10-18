@@ -4,6 +4,7 @@ using DataAccess.Concrete.EntityFramework.Contexts;
 using Entities.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace WebUI.Controllers
 {
-    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly IWriterService _writerService;
@@ -24,12 +24,14 @@ namespace WebUI.Controllers
             _writerService = writerService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(Writer writer)
         {
@@ -44,7 +46,7 @@ namespace WebUI.Controllers
                 var userIdentity = new ClaimsIdentity(claims, "claim");
                 ClaimsPrincipal principal = new(userIdentity);
                 await HttpContext.SignInAsync(principal);
-                return RedirectToAction("Index", "Writer");
+                return RedirectToAction("Dashboard", "Writer");
             }
             else
             {
@@ -52,12 +54,14 @@ namespace WebUI.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Register(Writer writer)
         {
@@ -78,6 +82,12 @@ namespace WebUI.Controllers
                 }
             }
             return View();
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

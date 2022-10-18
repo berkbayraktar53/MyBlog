@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
-    [AllowAnonymous]
     public class NotificationController : Controller
     {
         private readonly INotificationService _notificationService;

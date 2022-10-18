@@ -13,5 +13,7 @@ namespace Entities.Concrete
         public string Password { get; set; }
         public List<Blog> Blogs { get; set; }
         public bool Status { get; set; }
+        public virtual ICollection<MessageFk> WriterReceiver { get; set; }
+        public virtual ICollection<MessageFk> WriterSender { get; set; }
     }
 }

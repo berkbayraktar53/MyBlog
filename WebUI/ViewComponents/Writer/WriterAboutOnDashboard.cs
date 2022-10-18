@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Security.Claims;
 
 namespace WebUI.ViewComponents.Writer
 {
@@ -14,7 +17,9 @@ namespace WebUI.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var values = _writerService.GetWriterById(1);
+            var userEmail = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Email == userEmail).Select(y => y.WriterId).FirstOrDefault();
+            var values = _writerService.GetWriterById(writerId);
             return View(values);
         }
     }

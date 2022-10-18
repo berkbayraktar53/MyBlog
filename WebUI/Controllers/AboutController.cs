@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
-    [AllowAnonymous]
     public class AboutController : Controller
     {
         private readonly IAboutService _aboutService;
@@ -14,6 +13,7 @@ namespace WebUI.Controllers
             _aboutService = aboutService;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values = _aboutService.GetList();
