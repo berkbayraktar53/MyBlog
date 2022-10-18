@@ -5,9 +5,18 @@ namespace WebUI.ViewComponents.Writer
 {
     public class WriterMessageNotification : ViewComponent
     {
+        private readonly IMessageService _messageService;
+
+        public WriterMessageNotification(IMessageService messageService)
+        {
+            _messageService = messageService;
+        }
+
         public IViewComponentResult Invoke()
         {
-            return View();
+            string receiver = "keremberk53@gmail.com";
+            var values = _messageService.GetInboxListByWriter(receiver);
+            return View(values);
         }
     }
 }

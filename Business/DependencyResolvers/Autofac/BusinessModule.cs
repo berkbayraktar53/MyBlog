@@ -25,6 +25,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ContactManager>().As<IContactService>();
             builder.RegisterType<EfContactDal>().As<IContactDal>();
 
+            builder.RegisterType<MessageManager>().As<IMessageService>();
+            builder.RegisterType<EfMessageDal>().As<IMessageDal>();
+
             builder.RegisterType<NewsletterManager>().As<INewsletterService>();
             builder.RegisterType<EfNewsletterDal>().As<INewsletterDal>();
 
