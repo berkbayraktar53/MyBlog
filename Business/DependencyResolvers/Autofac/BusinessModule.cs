@@ -28,6 +28,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<NewsletterManager>().As<INewsletterService>();
             builder.RegisterType<EfNewsletterDal>().As<INewsletterDal>();
 
+            builder.RegisterType<NotificationManager>().As<INotificationService>();
+            builder.RegisterType<EfNotificationDal>().As<INotificationDal>();
+
             builder.RegisterType<WriterManager>().As<IWriterService>();
             builder.RegisterType<EfWriterDal>().As<IWriterDal>();
         }
