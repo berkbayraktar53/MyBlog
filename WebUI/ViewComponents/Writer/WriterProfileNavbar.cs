@@ -4,14 +4,12 @@ using System.Linq;
 
 namespace WebUI.ViewComponents.Writer
 {
-    public class WriterMessageNotification : ViewComponent
+    public class WriterProfileNavbar : ViewComponent
     {
-        private readonly IMessageFkService _messageFkService;
         private readonly IWriterService _writerService;
 
-        public WriterMessageNotification(IMessageFkService messageFkService, IWriterService writerService)
+        public WriterProfileNavbar(IWriterService writerService)
         {
-            _messageFkService = messageFkService;
             _writerService = writerService;
         }
 
@@ -19,7 +17,7 @@ namespace WebUI.ViewComponents.Writer
         {
             var email = User.Identity.Name;
             var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.WriterId).FirstOrDefault();
-            var values = _messageFkService.GetInboxListByWriter(writerId);
+            var values = _writerService.GetWriterById(writerId);
             return View(values);
         }
     }

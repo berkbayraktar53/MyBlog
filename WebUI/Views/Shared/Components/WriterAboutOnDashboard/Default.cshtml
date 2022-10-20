@@ -3,18 +3,19 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Yazar Hakkında</h4>
+                <div style="text-align:center">
+                    <h4 class="card-title">Yazar Hakkında</h4>
+                </div>
                 <div class="d-flex mt-5 align-items-top">
                     @foreach (var writer in Model)
                     {
-                        <img src="/WriterImageFiles/@writer.Image" class="img-sm rounded-circle mr-3" alt="image">
+                        <img src="@writer.Image" class="img-sm rounded-circle mr-3" alt="image">
                         <div class="mb-0 flex-grow">
-                            <h5 class="mr-2 mb-2">@writer.Name - @writer.Email</h5>
-                            <p class="mb-0 font-weight-light">@writer.About</p>
+                            <h5 class="mr-2 mb-2">@writer.Name &nbsp; - &nbsp; @writer.About &nbsp; - &nbsp; @writer.Email</h5>
                         </div>
                     }
                     <div class="ml-auto">
-                        <a href="/Writer/Profile" class="badge badge-success">Düzenle</a>
+                        <a href="/Writer/Profile" class="badge badge-success">Profili Gör</a>
                     </div>
                 </div>
             </div>

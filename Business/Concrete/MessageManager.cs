@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -16,12 +17,12 @@ namespace Business.Concrete
 
         public List<Message> GetList()
         {
-            return _messageDal.GetList();
+            return _messageDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
         public List<Message> GetInboxListByWriter(string receiver)
         {
-            return _messageDal.GetList(x => x.Receiver == receiver);
+            return _messageDal.GetList(x => x.Receiver == receiver && x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
     }
 }

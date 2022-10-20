@@ -4,25 +4,33 @@
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
+<div class="page-header">
+    <h3 class="page-title">Gelen Bildirimler</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Writer/Dashboard">Anasayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bildirimler</li>
+        </ol>
+    </nav>
+</div>
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Bildirimler</h4>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Bildirim</th>
-                        <th>Tarih</th>
+                        <th>Bildirim Adı</th>
+                        <th>Bildirim Detayı</th>
+                        <th>Bildirim Zamanı</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var notification in Model)
                     {
                         <tr>
-                            <td>@notification.NotificationId</td>
+                            <td>@notification.Type</td>
                             <td>@notification.Detail</td>
-                            <td>@notification.Date.ToShortDateString()</td>
+                            <td>@notification.Date.ToString("dd/MM/yyyy - HH:mm")</td>
                         </tr>
                     }
                 </tbody>

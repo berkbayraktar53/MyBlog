@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Entities.Concrete;
 using FluentValidation.Results;
@@ -15,12 +16,14 @@ namespace WebUI.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
+        private readonly INotyfService _notyfService;
         private readonly IWriterService _writerService;
 
-        public BlogController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService)
+        public BlogController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService, INotyfService notyfService)
         {
             _blogService = blogService;
             _categoryService = categoryService;
+            _notyfService = notyfService;
             _writerService = writerService;
         }
 
@@ -43,7 +46,7 @@ namespace WebUI.Controllers
         {
             var email = User.Identity.Name;
             var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.WriterId).FirstOrDefault();
-            var values = _blogService.GetListWithCategoryByWriter(1);
+            var values = _blogService.GetListWithCategoryByWriter(writerId);
             return View(values);
         }
 
@@ -63,30 +66,43 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult Add(Blog blog)
         {
-            BlogValidator blogValidator = new BlogValidator();
+            BlogValidator blogValidator = new();
             ValidationResult result = blogValidator.Validate(blog);
             if (result.IsValid)
             {
+                var email = User.Identity.Name;
+                var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.WriterId).FirstOrDefault();
+                blog.Date = DateTime.Now;
                 blog.Status = true;
-                blog.Date = DateTime.Parse(DateTime.Now.ToShortDateString());
-                blog.WriterId = 1;
+                blog.WriterId = writerId;
                 _blogService.Add(blog);
+                _notyfService.Success("Blog Eklendi");
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
             else
             {
+                List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
+                                                       select new SelectListItem
+                                                       {
+                                                           Text = x.Name,
+                                                           Value = x.CategoryId.ToString()
+                                                       }).ToList();
+                ViewBag.category = categoryValues;
                 foreach (var item in result.Errors)
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
+                _notyfService.Error("Blog Eklenemedi");
+                return View();
             }
-            return View();
         }
 
         public IActionResult Delete(int id)
         {
             var values = _blogService.GetById(id);
-            _blogService.Delete(values);
+            values.Status = false;
+            _blogService.Update(values);
+            _notyfService.Success("Blog Silindi");
             return RedirectToAction("BlogListByWriter");
         }
 
@@ -107,12 +123,32 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult Edit(Blog blog)
         {
-            var value = _blogService.GetById(blog.BlogId);
-            blog.WriterId = 1;
-            blog.Date = value.Date;
-            blog.Status = true;
-            _blogService.Update(blog);
-            return RedirectToAction("BlogListByWriter");
+            BlogValidator blogValidator = new();
+            ValidationResult result = blogValidator.Validate(blog);
+            if (result.IsValid)
+            {
+                blog.Date = DateTime.Now;
+                blog.Status = true;
+                _blogService.Update(blog);
+                _notyfService.Success("Blog Güncellendi");
+                return RedirectToAction("BlogListByWriter", "Blog");
+            }
+            else
+            {
+                List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
+                                                       select new SelectListItem
+                                                       {
+                                                           Text = x.Name,
+                                                           Value = x.CategoryId.ToString()
+                                                       }).ToList();
+                ViewBag.category = categoryValues;
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                _notyfService.Error("Blog Güncellenemedi");
+                return View();
+            }
         }
     }
 }

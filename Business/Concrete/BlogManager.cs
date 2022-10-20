@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,27 +19,27 @@ namespace Business.Concrete
 
         public List<Blog> GetList()
         {
-            return _blogDal.GetList();
+            return _blogDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
         public List<Blog> GetListById(int blogId)
         {
-            return _blogDal.GetList(x => x.BlogId == blogId);
+            return _blogDal.GetList(x => x.BlogId == blogId).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
         public List<Blog> GetListWithCategory()
         {
-            return _blogDal.GetListWithCategory();
+            return _blogDal.GetListWithCategory().Where(x => x.Status == true).OrderByDescending(x => x.Date).Take(10).ToList();
         }
 
         public List<Blog> GetListByWriter(int writerId)
         {
-            return _blogDal.GetList(x => x.WriterId == writerId);
+            return _blogDal.GetList(x => x.WriterId == writerId).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
         public List<Blog> GetLast3Blog()
         {
-            return _blogDal.GetList().TakeLast(3).ToList();
+            return _blogDal.GetList().Where(x => x.Status == true).TakeLast(3).ToList();
         }
 
         public void Add(Blog blog)
@@ -47,7 +49,7 @@ namespace Business.Concrete
 
         public List<Blog> GetListWithCategoryByWriter(int writerID)
         {
-            return _blogDal.GetListWithCategoryByWriter(writerID);
+            return _blogDal.GetListWithCategoryByWriter(writerID).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
         public void Delete(Blog blog)

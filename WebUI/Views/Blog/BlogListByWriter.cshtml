@@ -4,18 +4,26 @@
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
+<div class="page-header">
+    <h3 class="page-title">Blog Listesi</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Writer/Dashboard">Anasayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bloglarım</li>
+        </ol>
+    </nav>
+</div>
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title" style="text-align:center">Blog Listesi</h4>
             <table class="table table-bordered">
                 <thead>
-                    <tr style="text-align:center">
+                    <tr>
                         <th>Blog Resmi</th>
                         <th>Blog Başlığı</th>
                         <th>Kategori</th>
                         <th>Tarih</th>
-                        <th>Durum</th>
+                        <th>Görüntüle</th>
                         <th>Düzenle</th>
                         <th>Sil</th>
                     </tr>
@@ -23,30 +31,21 @@
                 <tbody>
                     @foreach (var blog in Model)
                     {
-                        <tr style="text-align:center">
-                            <td><img src="@blog.Image" alt="image" /></td>
+                        <tr>
+                            <td style="text-align:center"><img src="@blog.Image" alt="image" /></td>
                             <td>@blog.Title</td>
                             <td>@blog.Category.Name</td>
-                            <td>@blog.Date.ToString("dd/MM/yyyy")</td>
-                            <td>
-                                @if (blog.Status)
-                                {
-                                    <span class="badge badge-success">Aktif</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-secondary">Pasif</span>
-                                }
-                            </td>
-                            <td><a href="/Blog/Edit/@blog.BlogId" class="badge badge-warning"><i class="mdi mdi-border-color"></i></a></td>
-                            <td><a href="/Blog/Delete/@blog.BlogId" class="badge badge-danger"><i class="mdi mdi-delete"></i></a></td>
+                            <td>@blog.Date.ToString("dd/MM/yyyy - HH:mm")</td>
+                            <td><a href="/Blog/Detail/@blog.BlogId" class="badge badge-success" target="_blank">Görüntüle</a></td>
+                            <td><a href="/Blog/Edit/@blog.BlogId" class="badge badge-warning">Düzenle</a></td>
+                            <td><a href="/Blog/Delete/@blog.BlogId" class="badge badge-danger" onclick="return confirm('Blog silinecek. Onaylıyor musun?')">Sil</a></td>
                         </tr>
                     }
                 </tbody>
             </table>
             <br />
             <div style="text-align:center">
-                <a href="/Blog/Add" class="btn btn-info btn-rounded btn-fw mr-2">Yeni Blog Ekle</a>
+                <a href="/Blog/Add" class="btn btn-primary btn-rounded btn-fw mr-2">Yeni Blog Ekle</a>
             </div>
         </div>
     </div>

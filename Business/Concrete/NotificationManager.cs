@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -16,7 +17,7 @@ namespace Business.Concrete
 
         public List<Notification> GetList()
         {
-            return _notificationDal.GetList();
+            return _notificationDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
     }
 }

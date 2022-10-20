@@ -3,7 +3,9 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Kategoriler</h4>
+                <div style="text-align:center" ">
+                    <h4 class="card-title">Kategori Listesi</h4>
+                </div>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -17,21 +19,21 @@
                         <tbody>
                             @foreach (var category in Model)
                             {
-                                <tr>
-                                    <td>@category.CategoryId</td>
-                                    <td>@category.Name</td>
-                                    <td>@category.Description</td>
-                                    <td>
-                                        @if (category.Status)
-                                        {
-                                            <p class="badge badge-primary">Aktif</p>
-                                        }
-                                        else
-                                        {
-                                            <p class="badge badge-secondary">Pasif</p>
-                                        }
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@category.CategoryId</td>
+                                <td>@category.Name</td>
+                                <td>@category.Description</td>
+                                <td>
+                                    @if (category.Status)
+                                    {
+                                    <p class="badge badge-success">Aktif</p>
+                                    }
+                                    else
+                                    {
+                                    <p class="badge badge-secondary">Pasif</p>
+                                    }
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

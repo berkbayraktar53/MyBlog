@@ -1,176 +1,22 @@
 ﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
-    @*@await Html.PartialAsync("~/Views/Shared/WriterLayoutPartial/_HeadPartial.cshtml")*@
-    <title>Blog Sitesi</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="~/templates/writer/assets/vendors/mdi/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="~/templates/writer/assets/vendors/css/vendor.bundle.base.css" rel="stylesheet" />
-    <link href="~/templates/writer/assets/css/style.css" rel="stylesheet" />
-    <link href="~/templates/writer/assets/images/favicon.ico" rel="shortcut icon" />
+    @await Html.PartialAsync("~/Views/Shared/WriterLayoutPartial/_HeadPartial.cshtml")
 </head>
 <body>
     <div class="container-scroller">
-        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="/Writer/Dashboard"><img src="~/templates/writer/assets/images/logo.svg" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="/Writer/Dashboard"><img src="~/templates/writer/assets/images/logo-mini.svg" alt="logo" /></a>
-            </div>
-            <div class="navbar-menu-wrapper d-flex align-items-stretch">
-                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                    <span class="mdi mdi-menu"></span>
-                </button>
-                <div class="search-field d-none d-md-block">
-                    <form class="d-flex align-items-center h-100" action="#">
-                        <div class="input-group">
-                            <div class="input-group-prepend bg-transparent">
-                                <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                            </div>
-                            <input type="text" class="form-control bg-transparent border-0" placeholder="Aranacak Kelimeyi Giriniz...">
-                        </div>
-                    </form>
-                </div>
-                <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item nav-profile dropdown">
-                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <div class="nav-profile-img">
-                                <img src="~/templates/writer/assets/images/faces/face1.jpg" alt="image">
-                                <span class="availability-status online"></span>
-                            </div>
-                            <div class="nav-profile-text">
-                                <p class="mb-1 text-black">David Greymaax</p>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-logout mr-2 text-primary"></i> Signout
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item d-none d-lg-block full-screen-link">
-                        <a class="nav-link">
-                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-email-outline"></i>
-                            <span class="count-symbol bg-warning"></span>
-                        </a>
-                        @await Component.InvokeAsync("WriterMessageNotification")
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                            <i class="mdi mdi-bell-outline"></i>
-                            <span class="count-symbol bg-danger"></span>
-                        </a>
-                        @await Component.InvokeAsync("WriterNotification")
-                    </li>
-                    <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-power"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item nav-settings d-none d-lg-block">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-format-line-spacing"></i>
-                        </a>
-                    </li>
-                </ul>
-                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-                    <span class="mdi mdi-menu"></span>
-                </button>
-            </div>
-        </nav>
+        @await Html.PartialAsync("/Views/Shared/WriterLayoutPartial/_HeaderPartial.cshtml")
         <div class="container-fluid page-body-wrapper">
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item nav-profile">
-                        <a href="#" class="nav-link">
-                            <div class="nav-profile-image">
-                                <img src="~/templates/writer/assets/images/faces/face1.jpg" alt="profile">
-                                <span class="login-status online"></span>
-                            </div>
-                            <div class="nav-profile-text d-flex flex-column">
-                                <span class="font-weight-bold mb-2">Yazar Adı Soyadı</span>
-                                <span class="text-secondary text-small">Yazılım Mühendisi</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Writer/Dashboard">
-                            <span class="menu-title">Anasayfa</span>
-                            <i class="mdi mdi-home menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Writer/EditProfile">
-                            <span class="menu-title">Profilim</span>
-                            <i class="mdi mdi-account-circle menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Blog/BlogListByWriter">
-                            <span class="menu-title">Bloglarım</span>
-                            <i class="mdi mdi-file-document-box menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Blog/Add">
-                            <span class="menu-title">Yeni Blog</span>
-                            <i class="mdi mdi-plus-box menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Message/InBox">
-                            <span class="menu-title">Mesajlar</span>
-                            <i class="mdi mdi-message-text menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Notification/AllNotification">
-                            <span class="menu-title">Bildirimler</span>
-                            <i class="mdi mdi-bell-outline menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="/Home/Index">
-                            <span class="menu-title">Siteye Git</span>
-                            <i class="mdi mdi-share menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Account/Logout">
-                            <span class="menu-title">Çıkış Yap</span>
-                            <i class="mdi mdi-exit-to-app menu-icon"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            @await Html.PartialAsync("/Views/Shared/WriterLayoutPartial/_NavbarPartial.cshtml")
             <div class="main-panel">
                 <div class="content-wrapper">
                     @RenderBody()
                 </div>
-                <footer class="footer">
-                    <div class="container-fluid clearfix text-center">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">© @DateTime.Now.Year Blog Sitesi. Tüm Hakları Saklıdır</span>
-                    </div>
-                </footer>
+                @await Html.PartialAsync("/Views/Shared/WriterLayoutPartial/_FooterPartial.cshtml")
             </div>
         </div>
     </div>
-    @*@await Html.PartialAsync("/Views/Shared/WriterLayoutPartial/_ScriptPartial.cshtml")*@
-    <script src="~/templates/writer/assets/vendors/js/vendor.bundle.base.js"></script>
-    <script src="~/templates/writer/assets/vendors/chart.js/Chart.min.js"></script>
-    <script src="~/templates/writer/assets/js/off-canvas.js"></script>
-    <script src="~/templates/writer/assets/js/hoverable-collapse.js"></script>
-    <script src="~/templates/writer/assets/js/misc.js"></script>
-    <script src="~/templates/writer/assets/js/dashboard.js"></script>
-    <script src="~/templates/writer/assets/js/todolist.js"></script>
+    @await Html.PartialAsync("/Views/Shared/WriterLayoutPartial/_ScriptPartial.cshtml")
+    @await Component.InvokeAsync("Notyf")
 </body>
 </html>

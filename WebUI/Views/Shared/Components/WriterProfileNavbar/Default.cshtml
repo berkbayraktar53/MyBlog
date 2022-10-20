@@ -1,0 +1,16 @@
+﻿@model List<Writer>
+<li class="nav-item nav-profile">
+    @foreach (var writer in Model)
+    {
+        <a href="#" class="nav-link">
+            <div class="nav-profile-image">
+                <img src="@writer.Image" alt="profile">
+                <span class="login-status online"></span>
+            </div>
+            <div class="nav-profile-text d-flex flex-column">
+                <span class="font-weight-bold mb-2">@writer.Name</span>
+                <span class="text-secondary text-small">@writer.About</span>
+            </div>
+        </a>
+    }
+</li>

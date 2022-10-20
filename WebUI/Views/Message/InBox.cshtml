@@ -4,23 +4,39 @@
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
-<h1>Gelen Kutusu</h1>
-<table class="table table-bordered">
-    <tr>
-        <th>#</th>
-        <th>Konu</th>
-        <th>Gönderen</th>
-        <th>Tarih</th>
-        <th>Mesajı Aç</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.MessageFkId</td>
-            <td>@item.Subject</td>
-            <td>@item.WriterSender.Name</td>
-            <td>@(((DateTime)@item.Date).ToString("dd-MMM-yyyy"))</td>
-            <td><a href="/Message/Detail/@item.MessageFkId" class="btn btn-warning">Mesajı Aç</a></td>
-        </tr>
-    }
-</table>
+<div class="page-header">
+    <h3 class="page-title">Gelen Mesajlar</h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Writer/Dashboard">Anasayfa</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Mesajlar</li>
+        </ol>
+    </nav>
+</div>
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mesajı Gönderen</th>
+                        <th>Mesaj Konusu</th>
+                        <th>Mesaj Tarihi</th>
+                        <th>Mesaj Detayı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var message in Model)
+                    {
+                        <tr>
+                            <td><img src="@message.WriterSender.Image" alt="image" /> &nbsp; @message.WriterSender.Name</td>
+                            <td>@message.Subject</td>
+                            <td>@message.Date.ToString("dd/MM/yyyy - HH:mm")</td>
+                            <td><a href="/Message/Detail/@message.MessageFkId" class="badge badge-success">Mesajı Aç</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,10 +1,14 @@
 ﻿@model List<MessageFk>
+<a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+    <i class="mdi mdi-email-outline"></i>
+    @*<span class="count-symbol bg-success"></span>*@
+</a>
 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-    <h6 class="p-3 mb-0">Mesajlar</h6>
+    <h6 class="p-3 mb-0">Gelen Mesajlar</h6>
     <div class="dropdown-divider"></div>
     @foreach (var message in Model)
     {
-        <a class="dropdown-item preview-item">
+        <a href="/Message/InBox" class="dropdown-item preview-item">
             <div class="preview-thumbnail">
                 <img src="@message.WriterSender.Image" alt="image" class="profile-pic">
             </div>
@@ -15,5 +19,4 @@
         </a>
     }
     <div class="dropdown-divider"></div>
-    <h6 class="p-3 mb-0 text-center"><a href="/Notification/AllNotification">Tüm Mesajları Gör</a></h6>
 </div>

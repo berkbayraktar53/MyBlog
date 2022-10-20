@@ -3,27 +3,29 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Son 10 Blog</h4>
+                <div style="text-align:center">
+                    <h4 class="card-title">Siteye Eklenen Son 10 Blog</h4>
+                </div>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr style="text-align:center">
+                            <tr>
                                 <th>Blog Resmi</th>
                                 <th>Blog Başlığı</th>
                                 <th>Kategori</th>
                                 <th>Tarih</th>
-                                <th>Detaylar</th>
+                                <th>Görüntüle</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var blog in Model)
                             {
-                                <tr style="text-align:center">
-                                    <td><img src="@blog.Image" class="mr-2" alt="image"></td>
+                                <tr>
+                                    <td style="text-align:center"><img src="@blog.Image" class="mr-2" alt="image"></td>
                                     <td>@blog.Title</td>
-                                    <td><label class="badge badge-gradient-success">@blog.Category.Name</label></td>
-                                    <td> @(((DateTime)blog.Date).ToString("dd-MM-yyyy")) </td>
-                                    <td> <a class="badge badge-info" target="_blank" href="/Blog/Detail/@blog.BlogId"><i class="mdi mdi-share"></i></a> </td>
+                                    <td>@blog.Category.Name</td>
+                                    <td> @(((DateTime)blog.Date).ToString("dd/MM/yyyy - HH:mm")) </td>
+                                    <td><a href="/Blog/Detail/@blog.BlogId" class="badge badge-success" target="_blank">Görüntüle</a></td>
                                 </tr>
                             }
                         </tbody>

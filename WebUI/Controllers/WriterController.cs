@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Entities.Concrete;
 using FluentValidation.Results;
@@ -15,21 +16,37 @@ namespace WebUI.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
+        private readonly IMessageFkService _messageFkService;
+        private readonly INotificationService _notificationService;
+        private readonly INotyfService _notyfService;
         private readonly IWriterService _writerService;
 
-        public WriterController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService)
+        public WriterController(IBlogService blogService, ICategoryService categoryService, IMessageFkService messageFkService, INotificationService notificationService, INotyfService notyfService, IWriterService writerService)
         {
             _blogService = blogService;
             _categoryService = categoryService;
+            _messageFkService = messageFkService;
+            _notificationService = notificationService;
+            _notyfService = notyfService;
             _writerService = writerService;
         }
 
         public IActionResult Dashboard()
         {
-            ViewBag.TotalBlog = _blogService.GetList().Count;
-            ViewBag.TotalBlogByWriter = _blogService.GetListByWriter(1).Count;
-            ViewBag.TotalCategory = _categoryService.GetList().Count;
+            var userEmail = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Email == userEmail).Select(y => y.WriterId).FirstOrDefault();
+            ViewBag.totalBlogCount = _blogService.GetListWithCategoryByWriter(writerId).Count;
+            ViewBag.totalMessageCount = _messageFkService.GetInboxListByWriter(writerId).Count;
+            ViewBag.totalNotificationCount = _notificationService.GetList().Count();
             return View();
+        }
+
+        public IActionResult Profile()
+        {
+            var userEmail = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Email == userEmail).Select(y => y.WriterId).FirstOrDefault();
+            var values = _writerService.GetWriterById(writerId);
+            return View(values);
         }
 
         [HttpGet]
@@ -50,7 +67,8 @@ namespace WebUI.Controllers
             {
                 writer.Status = true;
                 _writerService.Update(writer);
-                return RedirectToAction("EditProfile", "Writer");
+                _notyfService.Success("Profil Güncellendi");
+                return RedirectToAction("Profile", "Writer");
             }
             else
             {
@@ -58,8 +76,9 @@ namespace WebUI.Controllers
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
+                _notyfService.Error("Profil Güncellenemedi");
+                return View();
             }
-            return View();
         }
 
         [HttpGet]
