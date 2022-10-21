@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    @await Html.PartialAsync("~/Views/Shared/AdminLayoutPartial/_HeadPartial.cshtml")
+</head>
+<body>
+    <div id="wrapper">
+        @await Html.PartialAsync("/Views/Shared/AdminLayoutPartial/_NavbarPartial.cshtml")
+        <div id="page-wrapper" class="gray-bg">
+            @await Html.PartialAsync("/Views/Shared/AdminLayoutPartial/_HeaderPartial.cshtml")
+            @RenderBody()
+        </div>
+    </div>
+    @await Html.PartialAsync("/Views/Shared/AdminLayoutPartial/_ScriptPartial.cshtml")
+</body>
+</html>

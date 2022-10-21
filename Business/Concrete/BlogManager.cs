@@ -29,7 +29,7 @@ namespace Business.Concrete
 
         public List<Blog> GetListWithCategory()
         {
-            return _blogDal.GetListWithCategory().Where(x => x.Status == true).OrderByDescending(x => x.Date).Take(10).ToList();
+            return _blogDal.GetListWithCategory().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
         public List<Blog> GetListByWriter(int writerId)

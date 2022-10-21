@@ -12,20 +12,20 @@
                     {
                         <div class="col-md-6 card mb-4">
                             <a href="/Blog/Detail/@blog.BlogId">
-                                <img src="@blog.Image" class="card-img-top img-fluid" alt="">
+                                <img src="@blog.Image" style="height:170px;width:330px;" class="card-img-top img-fluid" alt="">
                             </a>
                             <div class="card-body">
                                 <ul class="blog-icons my-4">
                                     <li>
                                         <a>
-                                            <i class="far fa-calendar-alt"></i> @blog.Date.ToShortDateString()
+                                            <i class="far fa-calendar-alt"></i> @blog.Date.ToString("dd/MM/yyyy")
                                         </a>
                                     </li>
-                                    <li class="mx-2">
+                                    @*<li class="mx-2">
                                         <a>
                                             <i class="far fa-comment"></i> 21
                                         </a>
-                                    </li>
+                                    </li>*@
                                     <li>
                                         <a>
                                             <i class="fas fa-eye"></i> @blog.Category.Name
@@ -35,9 +35,9 @@
                                 <h5 class="card-title ">
                                     <a href="/Blog/Detail/@blog.BlogId">@blog.Title</a>
                                 </h5>
-                                <p class="card-text mb-3">@blog.Content.Substring(0, @blog.Content.Substring(0, 130).LastIndexOf(" ")) ...</p>
-                                <a href="/Blog/Detail/@blog.BlogId" class="btn btn-primary read-m">Devamını Oku</a>
-                            </div>
+                                <p class="card-text mb-3">@blog.Content.Substring(0, @blog.Content.Substring(0, 105).LastIndexOf(" ")) ...</p>
+                                <a href="/Blog/Detail/@blog.BlogId" class="btn btn-outline-secondary read-m">Devamını Oku</a>
+                            </div><hr>
                         </div>
                     }
                 </div>
@@ -64,6 +64,7 @@
             <aside class="col-lg-4 agileits-w3ls-right-blog-con text-left">
                 <div class="right-blog-info text-left">
                     @await Component.InvokeAsync("CategoryList")
+                    <hr />
                     <div class="tech-btm">
                         <img src="~/templates/blog/images/banner1.jpg" class="card-img-top img-fluid" alt="">
                     </div>
