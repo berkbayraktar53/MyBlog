@@ -1,4 +1,6 @@
 using AspNetCoreHero.ToastNotification;
+using DataAccess.Concrete.EntityFramework.Contexts;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -21,6 +23,13 @@ namespace WebUI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DatabaseContext>();
+            services.AddIdentity<User, Role>(x =>
+            {
+                x.Password.RequireUppercase = false;
+                x.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<DatabaseContext>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddNotyf(cfg =>

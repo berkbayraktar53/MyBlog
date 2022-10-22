@@ -7,31 +7,34 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly IWriterService _writerService;
 
-        public AccountController(IWriterService writerService)
+        public AccountController(UserManager<User> userManager, IWriterService writerService)
         {
+            _userManager = userManager;
             _writerService = writerService;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(Writer writer)
         {
@@ -54,34 +57,37 @@ namespace WebUI.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register(Writer writer)
+        public async Task<IActionResult> Register(UserRegisterViewModel userRegisterViewModel)
         {
-            WriterValidator writerValidator = new WriterValidator();
-            ValidationResult results = writerValidator.Validate(writer);
-            if (results.IsValid)
+            if (ModelState.IsValid)
             {
-                writer.Status = true;
-                writer.About = "Blog Yazarı";
-                _writerService.Add(writer);
-                return RedirectToAction("Index", "Blog");
-            }
-            else
-            {
-                foreach (var item in results.Errors)
+                User user = new User()
                 {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                    Email = userRegisterViewModel.Email,
+                    UserName = userRegisterViewModel.UserName,
+                    FullName = userRegisterViewModel.FullName
+                };
+                var result = await _userManager.CreateAsync(user, userRegisterViewModel.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("", item.Description);
+                    }
                 }
             }
-            return View();
+            return View(userRegisterViewModel);
         }
 
         public async Task<IActionResult> LogOut()

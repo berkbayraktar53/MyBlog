@@ -1,9 +1,10 @@
 ﻿using Entities.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework.Contexts
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<User, Role, int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,6 +24,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 .WithMany(y => y.WriterSender)
                 .HasForeignKey(z => z.SenderId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<About> Abouts { get; set; }
