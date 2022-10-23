@@ -6,6 +6,7 @@ using System;
 
 namespace WebUI.Controllers
 {
+    [AllowAnonymous]
     public class ContactController : Controller
     {
         private readonly IContactService _contactService;
@@ -15,7 +16,6 @@ namespace WebUI.Controllers
             _contactService = contactService;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
@@ -23,7 +23,6 @@ namespace WebUI.Controllers
             return View(values);
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult Index(Contact contact)
         {

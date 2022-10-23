@@ -2,7 +2,22 @@
     @*<p>Yazılım, teknoloji ve diğer bloglar için...</p>*@
     <p>Yazılım, teknoloji ve diğer bloglarlardan haberdar olmak için abone olun</p>
     <form action="/Newsletter/SubscribeMail" method="post">
-        <input type="email" placeholder="E-posta adresiniz" name="Email" required="" />
-        <input type="submit" value="Kayıt Ol">
+        <input type="email" placeholder="E-posta adresiniz" name="Email" id="txtEmail" required="" />
+        <input type="submit" id="btnSave" value="Kayıt Ol">
     </form>
 </div>
+<script type="text/javascript">
+    $("#btnSave").click(function () {
+        let values = {
+            Email: $("#txtEmail").val()
+        };
+        $.ajax({
+            type: "post",
+            url: "/Newsletter/SubscribeMail",
+            data: values,
+            success: function (func) {
+                let result = jQuery.parseJSON(func);
+            }
+        });
+    });
+</script>
