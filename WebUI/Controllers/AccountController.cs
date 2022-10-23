@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
 using DataAccess.Concrete.EntityFramework.Contexts;
 using Entities.Concrete;
@@ -20,12 +21,16 @@ namespace WebUI.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager; // Giriş yapmak için gereken Microsoft kütüphanesi
+        private readonly UserManager<User> _userManager; // Kayıt olmak için gereken Microsoft kütüphanesi
+        private readonly INotyfService _notyfService;
         private readonly IWriterService _writerService;
 
-        public AccountController(UserManager<User> userManager, IWriterService writerService)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, INotyfService notyfService, IWriterService writerService)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
+            _notyfService = notyfService;
             _writerService = writerService;
         }
 
@@ -36,24 +41,19 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(Writer writer)
+        public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
         {
             DatabaseContext context = new DatabaseContext();
-            var user = context.Writers.FirstOrDefault(x => x.Email == writer.Email && x.Password == writer.Password);
-            if (user != null)
+            var result = await _signInManager.PasswordSignInAsync(userLoginViewModel.UserName, userLoginViewModel.Password, false, true);
+            if (result.Succeeded)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, writer.Email)
-                };
-                var userIdentity = new ClaimsIdentity(claims, "claim");
-                ClaimsPrincipal principal = new(userIdentity);
-                await HttpContext.SignInAsync(principal);
+                _notyfService.Success("Giriş başarılı");
                 return RedirectToAction("Dashboard", "Writer");
             }
             else
             {
-                return View();
+                _notyfService.Error("Kullanıcı adı veya şifre hatalı");
+                return RedirectToAction("Login", "Account");
             }
         }
 
