@@ -24,14 +24,12 @@ namespace WebUI.Controllers
         private readonly SignInManager<User> _signInManager; // Giriş yapmak için gereken Microsoft kütüphanesi
         private readonly UserManager<User> _userManager; // Kayıt olmak için gereken Microsoft kütüphanesi
         private readonly INotyfService _notyfService;
-        private readonly IWriterService _writerService;
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, INotyfService notyfService, IWriterService writerService)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, INotyfService notyfService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _notyfService = notyfService;
-            _writerService = writerService;
         }
 
         [HttpGet]
@@ -43,7 +41,6 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
         {
-            DatabaseContext context = new DatabaseContext();
             var result = await _signInManager.PasswordSignInAsync(userLoginViewModel.UserName, userLoginViewModel.Password, false, true);
             if (result.Succeeded)
             {
@@ -68,7 +65,7 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User()
+                User user = new()
                 {
                     Email = userRegisterViewModel.Email,
                     UserName = userRegisterViewModel.UserName,
@@ -92,8 +89,9 @@ namespace WebUI.Controllers
 
         public async Task<IActionResult> LogOut()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            await _signInManager.SignOutAsync();
+            _notyfService.Success("Çıkış yaptınız");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

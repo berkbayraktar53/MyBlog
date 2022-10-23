@@ -1,4 +1,4 @@
-﻿@model Writer
+﻿@model UserUpdateViewModel
 @{
     ViewData["Title"] = "EditProfile";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
@@ -13,29 +13,29 @@
         </ol>
     </nav>
 </div>
-@using (Html.BeginForm("EditProfile", "Writer", FormMethod.Post))
-{
+@*@using (Html.BeginForm("EditProfile", "Writer", FormMethod.Post))
+{*@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <br>
-                @Html.HiddenFor(x=>x.WriterId)
-                <form class="forms-sample">
+                @*@Html.HiddenFor(x=>x.WriterId)*@
+                <form class="forms-sample" method="post">
                     <div class="form-group">
                         <label for="exampleInputName1">Profil Resmi</label>
-                        <input type="text" class="form-control" asp-for="Image">
-                        @Html.ValidationMessageFor(x => x.Image, "", new { @style = "Color:red" })
+                        <input type="text" class="form-control" asp-for="ImageUrl">
+                        @Html.ValidationMessageFor(x => x.ImageUrl, "", new { @style = "Color:red" })
                     </div>
                     <div class="form-group">
                         <label for="exampleInputName1">Adı Soyadı</label>
-                        <input type="text" class="form-control" asp-for="Name">
-                        @Html.ValidationMessageFor(x => x.Name, "", new { @style = "Color:red" })
+                        <input type="text" class="form-control" asp-for="FullName">
+                        @Html.ValidationMessageFor(x => x.FullName, "", new { @style = "Color:red" })
                     </div>
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label for="exampleTextarea1">Hakkında</label>
                         <input type="text" class="form-control" asp-for="About">
                         @Html.ValidationMessageFor(x => x.About, "", new { @style = "Color:red" })
-                    </div>
+                    </div>*@
                     <div class="form-group">
                         <label for="exampleInputEmail3">Email Adresi</label>
                         <input type="email" class="form-control" asp-for="Email">
@@ -53,4 +53,4 @@
             </div>
         </div>
     </div>
-}
+@*}*@

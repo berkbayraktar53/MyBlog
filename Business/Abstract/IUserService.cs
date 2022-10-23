@@ -6,5 +6,6 @@ namespace Business.Abstract
     public interface IUserService : IEntityService<User>
     {
         User GetById(int id);
+        void Update(User user);
     }
 }

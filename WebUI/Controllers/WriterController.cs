@@ -56,21 +56,27 @@ namespace WebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditProfile()
+        public async Task<IActionResult> EditProfile()
         {
-            var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
-            var values = _writerService.GetById(writerId);
-            return View(values);
+            UserUpdateViewModel model = new();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            model.FullName = values.FullName;
+            model.UserName = values.UserName;
+            model.Email = values.Email;
+            model.ImageUrl = values.ImageUrl;
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult EditProfile(Writer writer)
+        public async Task<IActionResult> EditProfile(UserUpdateViewModel model)
         {
-            var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
-            var values = _userService.GetById(writerId);
-            _writerService.Update(writer);
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            values.FullName = model.FullName;
+            values.UserName = model.UserName;
+            values.Email = model.Email;
+            values.ImageUrl = model.ImageUrl;
+            values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.Password);
+            var result = await _userManager.UpdateAsync(values);
             _notyfService.Success("Yazar güncellendi");
             return RedirectToAction("Dashboard", "Writer");
         }

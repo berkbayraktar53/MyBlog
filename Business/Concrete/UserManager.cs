@@ -27,5 +27,10 @@ namespace Business.Concrete
         {
             return _userDal.GetList();
         }
+
+        public void Update(User user)
+        {
+            _userDal.Update(user);
+        }
     }
 }
