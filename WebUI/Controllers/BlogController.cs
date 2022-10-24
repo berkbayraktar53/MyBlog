@@ -45,7 +45,7 @@ namespace WebUI.Controllers
         public IActionResult BlogListByWriter()
         {
             var email = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.WriterId).FirstOrDefault();
+            var writerId = _writerService.GetList().Where(x => x.Name == email).Select(y => y.WriterId).FirstOrDefault();
             var values = _blogService.GetListWithCategoryByWriter(writerId);
             return View(values);
         }

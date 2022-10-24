@@ -1,15 +1,15 @@
 ﻿@model List<MessageFk>
 @{
-    ViewData["Title"] = "InBox";
+    ViewData["Title"] = "SendBox";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
 <div class="page-header">
-    <h3 class="page-title">Gelen Kutusu</h3>
+    <h3 class="page-title">Gönderilen Mesajlar</h3>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/Writer/Dashboard">Anasayfa</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Gelen Mesajlar</li>
+            <li class="breadcrumb-item active" aria-current="page">Giden Mesajlar</li>
         </ol>
     </nav>
 </div>
@@ -29,7 +29,7 @@
                     @foreach (var message in Model)
                     {
                         <tr>
-                            <td><img src="@message.WriterSender.Image" alt="image" /> &nbsp; @message.WriterSender.Name</td>
+                            <td><img src="@message.WriterReceiver.Image" alt="image" /> &nbsp; @message.WriterReceiver.Name</td>
                             <td>@message.Subject</td>
                             <td>@message.Date.ToString("dd/MM/yyyy - HH:mm")</td>
                             <td><a href="/Message/Detail/@message.MessageFkId" class="badge badge-success">Mesajı Aç</a></td>

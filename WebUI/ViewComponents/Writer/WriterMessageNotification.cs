@@ -17,9 +17,9 @@ namespace WebUI.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var email = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.WriterId).FirstOrDefault();
-            var values = _messageFkService.GetInboxListByWriter(writerId);
+            var name = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Name == name).Select(y => y.WriterId).FirstOrDefault();
+            var values = _messageFkService.GetInBoxListByWriter(writerId);
             return View(values);
         }
     }

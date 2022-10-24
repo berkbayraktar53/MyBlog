@@ -10,6 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface IMessageFkDal : IEntityRepository<MessageFk>
     {
-        List<MessageFk> GetListWithMessageByWriter(int id);
+        List<MessageFk> GetInBoxListWithMessageByWriter(int id);
+        List<MessageFk> GetSendBoxListWithMessageByWriter(int id);
     }
 }

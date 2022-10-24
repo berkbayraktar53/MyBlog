@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace WebUI.Controllers
@@ -17,9 +19,17 @@ namespace WebUI.Controllers
 
         public IActionResult InBox()
         {
-            var email = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.WriterId).FirstOrDefault();
-            var values = _messageFkService.GetInboxListByWriter(writerId);
+            var userName = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
+            var values = _messageFkService.GetInBoxListByWriter(writerId);
+            return View(values);
+        }
+
+        public IActionResult SendBox()
+        {
+            var userName = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
+            var values = _messageFkService.GetSendBoxListByWriter(writerId);
             return View(values);
         }
 
@@ -28,6 +38,25 @@ namespace WebUI.Controllers
             var values = _messageFkService.GetById(id);
             ViewBag.senderName = _writerService.GetById((int)values.SenderId).Name;
             return View(values);
+        }
+
+        [HttpGet]
+        public IActionResult SendMessage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SendMessage(MessageFk message)
+        {
+            var userName = User.Identity.Name;
+            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
+            message.SenderId = writerId;
+            message.ReceiverId = 1;
+            message.Status = true;
+            message.Date = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            _messageFkService.Add(message);
+            return RedirectToAction("InBox");
         }
     }
 }

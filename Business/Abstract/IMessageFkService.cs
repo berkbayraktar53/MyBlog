@@ -10,7 +10,9 @@ namespace Business.Abstract
 {
     public interface IMessageFkService : IEntityService<MessageFk>
     {
-        List<MessageFk> GetInboxListByWriter(int id);
+        List<MessageFk> GetInBoxListByWriter(int id);
+        List<MessageFk> GetSendBoxListByWriter(int id);
         MessageFk GetById(int id);
+        void Add(MessageFk message);
     }
 }

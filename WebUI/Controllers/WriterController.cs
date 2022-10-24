@@ -42,8 +42,8 @@ namespace WebUI.Controllers
             var userName = User.Identity.Name;
             var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
             ViewBag.totalBlogCount = _blogService.GetListWithCategoryByWriter(writerId).Count;
-            ViewBag.totalMessageCount = _messageFkService.GetInboxListByWriter(writerId).Count;
-            ViewBag.totalNotificationCount = _notificationService.GetList().Count();
+            ViewBag.totalMessageCount = _messageFkService.GetInBoxListByWriter(writerId).Count;
+            ViewBag.totalNotificationCount = _notificationService.GetList().Count;
             return View();
         }
 
@@ -76,7 +76,7 @@ namespace WebUI.Controllers
             values.Email = model.Email;
             values.ImageUrl = model.ImageUrl;
             values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.Password);
-            var result = await _userManager.UpdateAsync(values);
+            await _userManager.UpdateAsync(values);
             _notyfService.Success("Yazar güncellendi");
             return RedirectToAction("Dashboard", "Writer");
         }
