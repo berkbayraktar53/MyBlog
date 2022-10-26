@@ -53,6 +53,15 @@ namespace WebUI
                 {
                     x.LoginPath = "/Account/Login";
                 });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = System.TimeSpan.FromMinutes(100);
+                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/ErrorPage/Error404");
+                options.LoginPath = "/Account/Login";
+                options.SlidingExpiration = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

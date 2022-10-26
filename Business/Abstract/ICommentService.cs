@@ -8,5 +8,6 @@ namespace Business.Abstract
     {
         void Add(Comment comment);
         List<Comment> GetListByBlog(int blogId);
+        List<Comment> GetListWithBlog();
     }
 }
