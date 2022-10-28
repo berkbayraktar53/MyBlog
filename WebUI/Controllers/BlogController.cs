@@ -73,7 +73,7 @@ namespace WebUI.Controllers
             if (result.IsValid)
             {
                 var email = User.Identity.Name;
-                var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.WriterId).FirstOrDefault();
+                var writerId = _writerService.GetList().Where(x => x.Name == email).Select(y => y.WriterId).FirstOrDefault();
                 blog.Date = DateTime.Now;
                 blog.Status = true;
                 blog.WriterId = writerId;

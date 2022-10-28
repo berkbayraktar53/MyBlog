@@ -11,6 +11,7 @@ namespace Entities.Concrete
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
+        public int TotalViews { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public int WriterId { get; set; }

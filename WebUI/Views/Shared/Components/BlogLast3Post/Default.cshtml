@@ -10,11 +10,17 @@
             </div>
             <div class="col-md-7 blog-grid-right">
                 <h5>
-                    <a href="/Blog/Detail/@blog.BlogId">@blog.Content.Substring(0, @blog.Content.Substring(0, 50).LastIndexOf(" ")) ...</a>
+                    <a href="/Blog/Detail/@blog.BlogId">@blog.Title</a>
+                    @*<a href="/Blog/Detail/@blog.BlogId">@blog.Content.Substring(0, @blog.Content.Substring(0, 50).LastIndexOf(" ")) ...</a>*@
                 </h5>
                 <div class="sub-meta">
                     <span>
-                        <i class="far fa-clock"></i> @blog.Date.ToShortDateString()
+                        <i class="far fa-clock"></i> @blog.Date.ToString("dd/MM/yyyy")
+                    </span>
+                </div>
+                <div class="sub-meta">
+                    <span>
+                        Kategori: @blog.Category.Name
                     </span>
                 </div>
             </div>

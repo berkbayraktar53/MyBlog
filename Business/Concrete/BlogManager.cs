@@ -19,7 +19,7 @@ namespace Business.Concrete
 
         public List<Blog> GetList()
         {
-            return _blogDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetList().OrderByDescending(x => x.Date).ToList(); ;
         }
 
         public List<Blog> GetListById(int blogId)
@@ -39,7 +39,7 @@ namespace Business.Concrete
 
         public List<Blog> GetLast3Blog()
         {
-            return _blogDal.GetList().Where(x => x.Status == true).TakeLast(3).ToList();
+            return _blogDal.GetListWithCategory().Where(x => x.Status == true).TakeLast(3).OrderByDescending(x => x.Date).ToList();
         }
 
         public void Add(Blog blog)
@@ -65,6 +65,16 @@ namespace Business.Concrete
         public void Update(Blog blog)
         {
             _blogDal.Update(blog);
+        }
+
+        public List<Blog> GetListByActiveStatus()
+        {
+            return _blogDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+        }
+
+        public List<Blog> GetListByMostRead()
+        {
+            return _blogDal.GetList().Where(x => x.Status == true).TakeLast(3).OrderBy(x => x.TotalViews).ToList();
         }
     }
 }
