@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Blog>
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = "Blog Detay";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
 <section class="banner-bottom">
@@ -13,7 +14,7 @@
                         <div class="b-grid-top">
                             <div class="blog_info_left_grid">
                                 <a href="single.html">
-                                    <img src="@blog.Image" class="img-fluid" alt="">
+                                    <img src="@blog.Image" class="img-fluid" style="width:730px;height:390px;" alt="Resim bulunamadı">
                                 </a>
                             </div>
                             <div class="blog-info-middle">

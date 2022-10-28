@@ -1,6 +1,10 @@
-﻿@model List<Blog>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common;
+@model IPagedList<Blog>
 @{
-    ViewData["Title"] = "Blog";
+    ViewData["Title"] = "Bloglar";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
 <section class="main-content-w3layouts-agileits">
@@ -11,56 +15,44 @@
                     @foreach (var blog in Model)
                     {
                         <div class="col-lg-4 card mb-4">
-                            <a href="single.html">
-                                <img src="@blog.Image" class="card-img-top img-fluid" alt="">
+                            <a href="/Blog/Detail/@blog.BlogId">
+                                <img src="@blog.Image" class="card-img-top img-fluid" style="height:170px;width:330px;" alt="resim bulunamadı">
                             </a>
                             <div class="card-body">
                                 <ul class="blog-icons my-4">
                                     <li>
-                                        <a href="#">
-                                            <i class="far fa-calendar-alt"></i> @blog.Date.ToShortDateString()
+                                        <a>
+                                            <i class="far fa-calendar-alt"></i> @blog.Date.ToString("dd/MM/yyyy")
                                         </a>
                                     </li>
-                                    <li class="mx-2">
-                                        <a href="#">
+                                    <li>
+                                        <a>
                                             <i class="far fa-comment"></i> 21
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
-                                            <i class="fas fa-eye"></i> @blog.Category.Name
+                                        <a>
+                                            <i class="fas fa-list"></i> @blog.Category.Name
                                         </a>
                                     </li>
 
                                 </ul>
                                 <h5 class="card-title">
-                                    <a href="single.html">@blog.Title</a>
+                                    <a href="/Blog/Detail/@blog.BlogId">@blog.Title</a>
                                 </h5>
-                                <p class="card-text mb-3">@blog.Content.Substring(0, @blog.Content.Substring(0, 130).LastIndexOf(" ")) ...</p>
-                                <a href="single.html" class="btn btn-primary read-m">Devamını Oku</a>
+                                <p class="card-text mb-3">@blog.Content.Substring(0, @blog.Content.Substring(0, 105).LastIndexOf(" ")) ...</p>
+                                <a href="/Blog/Detail/@blog.BlogId" class="btn btn-outline-secondary read-m">Devamını Oku</a>
                             </div>
                         </div>
                     }
                 </div>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-left mt-4">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                <div style="display:flex;justify-content:center;">
+                    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }),
+                    new PagedListRenderOptions {
+                    LiElementClasses = new string[] { "page-item" },
+                    PageClasses = new string[] { "page-link" }
+                    })
+                </div>
             </div>
         </div>
     </div>

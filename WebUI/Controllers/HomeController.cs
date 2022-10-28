@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace WebUI.Controllers
 {
@@ -14,9 +15,9 @@ namespace WebUI.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var values = _blogService.GetListWithCategory();
+            var values = _blogService.GetListWithCategory().ToPagedList(page, 12);
             return View(values);
         }
     }
