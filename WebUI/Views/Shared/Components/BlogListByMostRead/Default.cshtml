@@ -1,21 +1,25 @@
 ﻿@model List<Blog>
 <div class="tech-btm">
-    <h4>En Çok Okunan Bloglar</h4>
     @foreach (var blog in Model)
     {
         <div class="blog-grids row mb-3 text-left">
             <div class="col-md-5 blog-grid-left">
                 <a href="single.html">
-                    <img src="@blog.Image" class="card-img-top img-fluid" style="width:130px;height:80px" alt="Resim bulunamadı">
+                    <img src="@blog.Image" class="card-img-top img-fluid" style="width:130px;height:85px" alt="Resim bulunamadı">
                 </a>
             </div>
             <div class="col-md-7 blog-grid-right">
                 <h5>
-                    <a href="single.html">@blog.Title</a>
+                    <a href="/Blog/Detail/@blog.BlogId">@blog.Title</a>
                 </h5>
                 <div class="sub-meta">
                     <span>
-                        <i class="far fa-clock"></i> 20 Jan, 2018
+                        <i class="far fa-clock"></i> @blog.Date.ToString("dd/MM/yyyy")
+                    </span>
+                </div>
+                <div class="sub-meta">
+                    <span>
+                        Kategori: @blog.Category.Name
                     </span>
                 </div>
             </div>

@@ -14,7 +14,7 @@ namespace WebUI.ViewComponents.Category
 
         public IViewComponentResult Invoke()
         {
-            var result = _categoryService.GetList();
+            var result = _categoryService.GetListWithBlog();
             return View(result);
         }
     }

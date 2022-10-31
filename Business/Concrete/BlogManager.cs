@@ -74,7 +74,7 @@ namespace Business.Concrete
 
         public List<Blog> GetListByMostRead()
         {
-            return _blogDal.GetList().Where(x => x.Status == true).TakeLast(3).OrderBy(x => x.TotalViews).ToList();
+            return _blogDal.GetListWithCategory().Where(x => x.Status == true).OrderByDescending(x => x.TotalViews).Take(3).ToList();
         }
     }
 }

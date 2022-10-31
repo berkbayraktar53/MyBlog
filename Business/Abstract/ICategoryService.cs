@@ -11,5 +11,6 @@ namespace Business.Abstract
         void Update(Category category);
         Category GetById(int id);
         List<Category> GetListByActiveStatus();
+        List<Category> GetListWithBlog();
     }
 }

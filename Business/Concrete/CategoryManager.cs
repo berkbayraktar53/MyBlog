@@ -40,6 +40,11 @@ namespace Business.Concrete
             return _categoryDal.GetList().Where(x => x.Status == true).ToList();
         }
 
+        public List<Category> GetListWithBlog()
+        {
+            return _categoryDal.GetListWithBlog();
+        }
+
         public void Update(Category category)
         {
             _categoryDal.Update(category);

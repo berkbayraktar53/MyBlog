@@ -56,13 +56,21 @@
             <aside class="col-lg-4 agileits-w3ls-right-blog-con text-left">
                 <div class="right-blog-info text-left">
                     @await Component.InvokeAsync("CategoryList")
+                    <div class="tech-btm">
+                        <h4>En Çok Okunan Bloglar</h4>
+                    </div>
                     @await Component.InvokeAsync("BlogListByMostRead")
+                    <hr />
                     <div class="tech-btm">
                         <h4>Son Eklenen Bloglar</h4>
                     </div>
                     @await Component.InvokeAsync("BlogLast3Post")
-                    <div class="tech-btm">
+                    @*<div class="tech-btm">
                         <img src="~/templates/blog/images/banner1.jpg" class="card-img-top img-fluid" style="height:170px;width:330px;" alt="">
+                    </div>*@
+                    <hr />
+                    <div class="tech-btm">
+                        <h4>Mail Bültenine Abone Ol</h4>
                     </div>
                     @await Html.PartialAsync("~/Views/Newsletter/SubscribeMail.cshtml")
                 </div>
