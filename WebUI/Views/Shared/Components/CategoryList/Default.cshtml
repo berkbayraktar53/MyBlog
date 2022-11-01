@@ -5,7 +5,7 @@
         @foreach (var category in Model)
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                @category.Name
+                <a href="/Blog/List/@category.CategoryId" style="color:#6F6F6F">@category.Name</a>
                 <span class="badge badge-primary badge-pill">@category.Blogs.Count()</span>
             </li>
         }

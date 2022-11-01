@@ -17,6 +17,8 @@ namespace Business.Abstract
         List<Blog> GetLast3Blog();
         List<Blog> GetListByMostRead();
         List<Blog> GetListWithCategoryByWriter(int writerID);
+        List<Blog> GetSearchResult(string query);
+        List<Blog> GetListByCategory(int categoryId);
 
     }
 }

@@ -152,5 +152,19 @@ namespace WebUI.Controllers
                 return View();
             }
         }
+
+        [AllowAnonymous]
+        public IActionResult Search(string query)
+        {
+            var values = _blogService.GetSearchResult(query).ToPagedList(1, 6);
+            return View(values);
+        }
+
+        [AllowAnonymous]
+        public IActionResult List(int id)
+        {
+            var values = _blogService.GetListByCategory(id).ToPagedList(1, 6);
+            return View(values);
+        }
     }
 }

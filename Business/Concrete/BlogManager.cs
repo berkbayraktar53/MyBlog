@@ -76,5 +76,15 @@ namespace Business.Concrete
         {
             return _blogDal.GetListWithCategory().Where(x => x.Status == true).OrderByDescending(x => x.TotalViews).Take(3).ToList();
         }
+
+        public List<Blog> GetSearchResult(string query)
+        {
+            return _blogDal.GetSearchResult(query);
+        }
+
+        public List<Blog> GetListByCategory(int categoryId)
+        {
+            return _blogDal.GetListWithCategory().Where(x => x.Status == true && x.CategoryId == categoryId).OrderByDescending(x => x.Date).ToList();
+        }
     }
 }

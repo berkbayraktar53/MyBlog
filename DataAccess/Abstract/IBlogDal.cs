@@ -8,5 +8,6 @@ namespace DataAccess.Abstract
     {
         List<Blog> GetListWithCategory();
         List<Blog> GetListWithCategoryByWriter(int writerId);
+        List<Blog> GetSearchResult(string query);
     }
 }

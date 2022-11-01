@@ -6,7 +6,7 @@
 
 <section class="main-content-w3layouts-agileits">
     <div class="container">
-        <h3 class="tittle">Hakkımızda</h3>
+        <h3 class="tittle">Hakkımda</h3>
         <div class="row inner-sec">
             <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
                 @foreach (var about in Model)
@@ -14,7 +14,7 @@
                     <div class="blog-grid-top">
                         <div class="blog_info_left_grid">
                             <a href="single.html">
-                                <img src="@about.Image" class="img-fluid" alt="">
+                                <img src="@about.Image" class="img-fluid" style="width:730px;height:300px;" alt="Resim bulunamadı">
                             </a>
                         </div>
                         <h3>@about.Title</h3>
@@ -24,12 +24,21 @@
             </div>
             <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
                 <div class="right-blog-info text-left">
+                    @await Component.InvokeAsync("CategoryList")
                     <div class="tech-btm">
-                        <img src="~/templates/blog/images/banner1.jpg" class="img-fluid" alt="">
+                        <h4>En Çok Okunan Bloglar</h4>
+                    </div>
+                    @await Component.InvokeAsync("BlogListByMostRead")
+                    <hr />
+                    <div class="tech-btm">
+                        <h4>Son Eklenen Bloglar</h4>
+                    </div>
+                    @await Component.InvokeAsync("BlogLast3Post")
+                    <hr />
+                    <div class="tech-btm">
+                        <h4>Mail Bültenine Abone Ol</h4>
                     </div>
                     @await Html.PartialAsync("~/Views/Newsletter/SubscribeMail.cshtml")
-                    @await Html.PartialAsync("~/Views/About/SocialMediaAccount.cshtml")
-                    @await Component.InvokeAsync("WriterLastBlog")
                 </div>
             </aside>
         </div>
