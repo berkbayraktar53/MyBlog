@@ -19,7 +19,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Mesajı Gönderen</th>
+                        <th>Mesajı İletilen</th>
                         <th>Mesaj Konusu</th>
                         <th>Mesaj Tarihi</th>
                         <th>Mesaj Detayı</th>
@@ -29,7 +29,7 @@
                     @foreach (var message in Model)
                     {
                         <tr>
-                            <td><img src="@message.UserReceiver.ImageUrl" alt="image" /> &nbsp; @message.UserReceiver.NameSurname</td>
+                            <td>@message.UserReceiver.NameSurname</td>
                             <td>@message.Subject</td>
                             <td>@message.AddedDate.ToString("dd/MM/yyyy - HH:mm")</td>
                             <td><a href="/Message/Detail/@message.MessageId" class="badge badge-success">Mesajı Aç</a></td>

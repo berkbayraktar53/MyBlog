@@ -36,8 +36,18 @@ namespace WebUI.Controllers
 
         public IActionResult Detail(int id)
         {
+            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             var values = _messageService.GetById(id);
-            ViewBag.senderName = _userService.GetById((int)values.SenderId).UserName;
+            if (values.ReceiverId == userId)
+            {
+                ViewBag.senderName = _userService.GetById((int)values.SenderId).NameSurname;
+                ViewBag.messagePath = "/Message/InBox";
+            }
+            else
+            {
+                ViewBag.senderName = _userService.GetById((int)values.ReceiverId).NameSurname;
+                ViewBag.messagePath = "/Message/SendBox";
+            }
             return View(values);
         }
 

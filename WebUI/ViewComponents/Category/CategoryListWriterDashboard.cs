@@ -14,7 +14,7 @@ namespace WebUI.ViewComponents.Category
 
         public IViewComponentResult Invoke()
         {
-            var values = _categoryService.GetList();
+            var values = _categoryService.GetListByActiveStatus();
             return View(values);
         }
     }

@@ -8,19 +8,16 @@ namespace WebUI.ViewComponents.Writer
     public class WriterProfileNavbar : ViewComponent
     {
         private readonly UserManager<User> _userManager;
-        private readonly IUserService _userService;
 
-        public WriterProfileNavbar(UserManager<User> userManager, IUserService userService)
+        public WriterProfileNavbar(UserManager<User> userManager)
         {
             _userManager = userManager;
-            _userService = userService;
         }
 
         public IViewComponentResult Invoke()
         {
-            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
-            var values = _userService.GetById(userId);
-            return View(values);
+            var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            return View(user);
         }
     }
 }

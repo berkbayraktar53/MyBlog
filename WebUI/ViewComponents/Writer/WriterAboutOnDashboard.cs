@@ -19,11 +19,8 @@ namespace WebUI.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
-            var userEmail = _userManager.FindByNameAsync(User.Identity.Name).Result.Email;
-            var writerId = _userService.GetList().Where(x => x.Email == userEmail).Select(y => y.Id).FirstOrDefault();
-            var values = _userService.GetById(writerId);
-            return View(values);
+            var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            return View(user);
         }
     }
 }

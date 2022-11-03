@@ -5,10 +5,10 @@
 }
 
 <div class="page-header">
-    <h3 class="page-title">@ViewBag.senderName 'den Gelen Mesaj</h3>
+    <h3 class="page-title">@ViewBag.senderName Yazarından Gelen Mesaj</h3>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/Message/InBox">Mesajlar</a></li>
+            <li class="breadcrumb-item"><a href="@ViewBag.messagePath">Mesajlar</a></li>
             <li class="breadcrumb-item active" aria-current="page">Mesaj Detayı</li>
         </ol>
     </nav>
@@ -40,7 +40,7 @@
                     @Html.TextAreaFor(x => x.Detail, 6, 3, new { @class = "form-control", @readonly = "readonly" })
                 </div>
                 <div style="text-align:center">
-                    <a href="/Message/InBox" class="btn btn-primary btn-rounded btn-fw mr-2">Mesajlara Dön</a>
+                    <a href="@ViewBag.messagePath" class="btn btn-primary btn-rounded btn-fw mr-2">Mesajlara Dön</a>
                 </div>
             </form>
         </div>

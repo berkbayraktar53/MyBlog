@@ -34,12 +34,12 @@ namespace WebUI.Controllers
             var result = await _signInManager.PasswordSignInAsync(userLoginViewModel.UserName, userLoginViewModel.Password, false, true);
             if (result.Succeeded)
             {
-                _notyfService.Success("Giriş başarılı");
+                _notyfService.Success("Hoşgeldiniz");
                 return RedirectToAction("Dashboard", "Writer");
             }
             else
             {
-                _notyfService.Error("Kullanıcı adı veya şifre hatalı");
+                _notyfService.Error("Kullanıcı Adı veya Şifre Hatalı");
                 return RedirectToAction("Login", "Account");
             }
         }
@@ -64,6 +64,7 @@ namespace WebUI.Controllers
                 var result = await _userManager.CreateAsync(user, userRegisterViewModel.Password);
                 if (result.Succeeded)
                 {
+                    _notyfService.Success("Kayıt Başarılı");
                     return RedirectToAction("Login", "Account");
                 }
                 else
@@ -72,15 +73,17 @@ namespace WebUI.Controllers
                     {
                         ModelState.AddModelError("", item.Description);
                     }
+                    _notyfService.Error("Kayıt Başarısız");
                 }
             }
+            _notyfService.Error("Lütfen Eksik Yerleri Doldurunuz");
             return View(userRegisterViewModel);
         }
 
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            _notyfService.Success("Çıkış yaptınız");
+            _notyfService.Success("Çıkış Yaptınız");
             return RedirectToAction("Login", "Account");
         }
     }

@@ -6,16 +6,24 @@
             </a>
         </div>
         <div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
-            <span class="mx-lg-4 mx-md-2  mx-1">
-                <a href="/Account/Login">
-                    <i class="fas fa-lock"></i> Giriş Yap
-                </a>
-            </span>
-            <span>
-                <a href="/Account/Register">
-                    <i class="far fa-user"></i> Kayıt Ol
-                </a>
-            </span>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <span class="mx-lg-4 mx-md-2  mx-1">
+                    <a href="/Account/Login">
+                        <i class="fas fa-lock"></i> Giriş Yap
+                    </a>
+                </span>
+                <span>
+                    <a href="/Account/Register">
+                        <i class="far fa-user"></i> Kayıt Ol
+                    </a>
+                </span>
+            }
+            else
+            {
+                <span class="mx-lg-4 mx-md-2  mx-1"></span>
+                <span></span>
+            }
         </div>
         <div class="col-md-4 log-icons text-right">
             <ul class="social_list1 mt-3">

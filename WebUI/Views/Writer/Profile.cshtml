@@ -1,4 +1,4 @@
-﻿@model List<User>
+﻿@model User
 @{
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
@@ -28,17 +28,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var writer in Model)
-                    {
-                        <tr style="text-align:center">
-                            <td><img src="@writer.ImageUrl" alt="image" /></td>
-                            <td>@writer.NameSurname</td>
-                            <td>@writer.UserName</td>
-                            <td>@writer.Email</td>
-                            <td>*****</td>
-                            <td><a href="/Writer/EditProfile/@writer.Id" class="badge badge-warning">Düzenle</a></td>
-                        </tr>
-                    }
+                    <tr style="text-align:center">
+                        <td><img src="@Model.ImageUrl" alt="resim bulunamadı" /></td>
+                        <td>@Model.NameSurname</td>
+                        <td>@Model.UserName</td>
+                        <td>@Model.Email</td>
+                        <td>*****</td>
+                        <td><a href="/Writer/EditProfile/@Model.Id" class="badge badge-warning">Düzenle</a></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
