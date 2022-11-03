@@ -13,6 +13,18 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.UserReceiver)
+                .WithMany(y => y.UserReceiver)
+                .HasForeignKey(z => z.ReceiverId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.UserSender)
+                .WithMany(y => y.UserSender)
+                .HasForeignKey(z => z.SenderId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
             modelBuilder.Entity<MessageFk>()
                 .HasOne(x => x.WriterReceiver)
                 .WithMany(y => y.WriterReceiver)

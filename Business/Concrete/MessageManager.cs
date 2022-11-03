@@ -20,9 +20,9 @@ namespace Business.Concrete
             return _messageDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
-        public List<Message> GetInboxListByWriter(string receiver)
+        public List<Message> GetInboxListByWriter(int receiver)
         {
-            return _messageDal.GetList(x => x.Receiver == receiver && x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _messageDal.GetList(x => x.ReceiverId == receiver && x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
     }
 }

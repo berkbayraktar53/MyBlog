@@ -14,6 +14,8 @@ namespace Entities.Concrete
         public int TotalViews { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public int WriterId { get; set; }
         public Writer Writer { get; set; }
         public List<Comment> Comments { get; set; }

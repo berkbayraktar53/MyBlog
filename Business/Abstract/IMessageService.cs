@@ -6,6 +6,6 @@ namespace Business.Abstract
 {
     public interface IMessageService : IEntityService<Message>
     {
-        List<Message> GetInboxListByWriter(string receiver);
+        List<Message> GetInboxListByWriter(int receiver);
     }
 }
