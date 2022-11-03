@@ -1,4 +1,4 @@
-﻿@model List<MessageFk>
+﻿@model List<Message>
 @{
     ViewData["Title"] = "SendBox";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
@@ -29,10 +29,10 @@
                     @foreach (var message in Model)
                     {
                         <tr>
-                            <td><img src="@message.WriterReceiver.Image" alt="image" /> &nbsp; @message.WriterReceiver.Name</td>
+                            <td><img src="@message.UserReceiver.ImageUrl" alt="image" /> &nbsp; @message.UserReceiver.FullName</td>
                             <td>@message.Subject</td>
                             <td>@message.Date.ToString("dd/MM/yyyy - HH:mm")</td>
-                            <td><a href="/Message/Detail/@message.MessageFkId" class="badge badge-success">Mesajı Aç</a></td>
+                            <td><a href="/Message/Detail/@message.MessageId" class="badge badge-success">Mesajı Aç</a></td>
                         </tr>
                     }
                 </tbody>

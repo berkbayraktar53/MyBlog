@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IMessageFkDal : IEntityRepository<MessageFk>
+    public interface IMessageFkDal : IEntityRepository<Message>
     {
-        List<MessageFk> GetInBoxListWithMessageByWriter(int id);
-        List<MessageFk> GetSendBoxListWithMessageByWriter(int id);
+        List<Message> GetInBoxListWithMessageByWriter(int id);
+        List<Message> GetSendBoxListWithMessageByWriter(int id);
     }
 }

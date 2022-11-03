@@ -18,8 +18,8 @@ namespace WebUI.ViewComponents.Writer
         public IViewComponentResult Invoke()
         {
             var userName = User.Identity.Name;
-            var writerEmail = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.Email).FirstOrDefault();
-            var writerId = _writerService.GetList().Where(x => x.Email == writerEmail).Select(y => y.WriterId).FirstOrDefault();
+            var writerEmail = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
+            var writerId = _writerService.GetList().Where(x => x.Email == writerEmail).Select(y => y.Id).FirstOrDefault();
             var values = _writerService.GetWriterById(writerId);
             return View(values);
         }

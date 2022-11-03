@@ -40,7 +40,7 @@ namespace WebUI.Controllers
         public IActionResult Dashboard()
         {
             var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
+            var writerId = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Id).FirstOrDefault();
             ViewBag.totalBlogCount = _blogService.GetListWithCategoryByWriter(writerId).Count;
             ViewBag.totalMessageCount = _messageFkService.GetInBoxListByWriter(writerId).Count;
             ViewBag.totalNotificationCount = _notificationService.GetList().Count;
@@ -50,7 +50,7 @@ namespace WebUI.Controllers
         public IActionResult Profile()
         {
             var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
+            var writerId = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Id).FirstOrDefault();
             var values = _writerService.GetWriterById(writerId);
             return View(values);
         }
@@ -88,7 +88,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddWriter(WriterProfileImage writerProfileImage, Writer writer)
+        public IActionResult AddWriter(WriterProfileImage writerProfileImage, User writer)
         {
             if (writerProfileImage.Image != null)
             {
@@ -97,13 +97,11 @@ namespace WebUI.Controllers
                 var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterImageFiles/", newImageName);
                 var stream = new FileStream(location, FileMode.Create);
                 writerProfileImage.Image.CopyTo(stream);
-                writer.Image = newImageName;
+                writer.ImageUrl = newImageName;
             }
             writer.Email = writerProfileImage.Email;
-            writer.Name = writerProfileImage.Name;
-            writer.Password = writerProfileImage.Password;
-            writer.About = writerProfileImage.About;
-            writer.Status = true;
+            writer.UserName = writerProfileImage.Name;
+            writer.PasswordHash = writerProfileImage.Password;
             _writerService.Add(writer);
             return RedirectToAction("Dashboard", "Writer");
         }

@@ -5,7 +5,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfWriterDal : EfEntityRepositoryBase<Writer, DatabaseContext>, IWriterDal
+    public class EfWriterDal : EfEntityRepositoryBase<User, DatabaseContext>, IWriterDal
     {
 
     }

@@ -1,4 +1,4 @@
-﻿@model List<Writer>
+﻿@model List<User>
 <div class="row">
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
@@ -9,9 +9,9 @@
                 <div class="d-flex mt-5 align-items-top">
                     @foreach (var writer in Model)
                     {
-                        <img src="@writer.Image" class="img-sm rounded-circle mr-3" alt="image">
+                        <img src="@writer.ImageUrl" class="img-sm rounded-circle mr-3" alt="image">
                         <div class="mb-0 flex-grow">
-                            <h5 class="mr-2 mb-2">@writer.Name &nbsp; - &nbsp; @writer.About &nbsp; - &nbsp; @writer.Email</h5>
+                            <h5 class="mr-2 mb-2">@writer.FullName &nbsp; - &nbsp; @writer.FullName &nbsp; - &nbsp; @writer.Email</h5>
                         </div>
                     }
                     <div class="ml-auto">

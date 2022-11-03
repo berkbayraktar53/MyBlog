@@ -8,35 +8,35 @@ namespace WebUI.Controllers
 {
     public class MessageController : Controller
     {
-        private readonly IMessageFkService _messageFkService;
+        private readonly IMessageService _messageService;
         private readonly IWriterService _writerService;
 
-        public MessageController(IMessageFkService messageFkService, IWriterService writerService)
+        public MessageController(IMessageService messageService, IWriterService writerService)
         {
-            _messageFkService = messageFkService;
+            _messageService = messageService;
             _writerService = writerService;
         }
 
         public IActionResult InBox()
         {
             var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
-            var values = _messageFkService.GetInBoxListByWriter(writerId);
+            var writerId = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Id).FirstOrDefault();
+            var values = _messageService.GetInBoxListByWriter(writerId);
             return View(values);
         }
 
         public IActionResult SendBox()
         {
             var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
-            var values = _messageFkService.GetSendBoxListByWriter(writerId);
+            var writerId = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Id).FirstOrDefault();
+            var values = _messageService.GetSendBoxListByWriter(writerId);
             return View(values);
         }
 
         public IActionResult Detail(int id)
         {
-            var values = _messageFkService.GetById(id);
-            ViewBag.senderName = _writerService.GetById((int)values.SenderId).Name;
+            var values = _messageService.GetById(id);
+            ViewBag.senderName = _writerService.GetById((int)values.SenderId).UserName;
             return View(values);
         }
 
@@ -47,15 +47,15 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendMessage(MessageFk message)
+        public IActionResult SendMessage(Message message)
         {
             var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Name == userName).Select(y => y.WriterId).FirstOrDefault();
+            var writerId = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Id).FirstOrDefault();
             message.SenderId = writerId;
             message.ReceiverId = 1;
             message.Status = true;
             message.Date = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-            _messageFkService.Add(message);
+            _messageService.Add(message);
             return RedirectToAction("InBox");
         }
     }

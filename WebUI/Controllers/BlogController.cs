@@ -47,7 +47,7 @@ namespace WebUI.Controllers
         public IActionResult BlogListByWriter()
         {
             var email = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Name == email).Select(y => y.WriterId).FirstOrDefault();
+            var writerId = _writerService.GetList().Where(x => x.UserName == email).Select(y => y.Id).FirstOrDefault();
             var values = _blogService.GetListWithCategoryByWriter(writerId);
             return View(values);
         }
@@ -73,10 +73,10 @@ namespace WebUI.Controllers
             if (result.IsValid)
             {
                 var email = User.Identity.Name;
-                var writerId = _writerService.GetList().Where(x => x.Name == email).Select(y => y.WriterId).FirstOrDefault();
+                var writerId = _writerService.GetList().Where(x => x.UserName == email).Select(y => y.Id).FirstOrDefault();
                 blog.Date = DateTime.Now;
                 blog.Status = true;
-                blog.WriterId = writerId;
+                blog.UserId = writerId;
                 _blogService.Add(blog);
                 _notyfService.Success("Blog Eklendi");
                 return RedirectToAction("BlogListByWriter", "Blog");

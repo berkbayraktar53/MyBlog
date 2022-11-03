@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         public List<Blog> GetListByWriter(int writerId)
         {
-            return _blogDal.GetList(x => x.WriterId == writerId).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetList(x => x.UserId == writerId).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
         public List<Blog> GetLast3Blog()

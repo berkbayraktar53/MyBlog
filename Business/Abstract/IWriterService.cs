@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Business.Abstract
 {
-    public interface IWriterService : IEntityService<Writer>
+    public interface IWriterService : IEntityService<User>
     {
-        void Add(Writer writer);
-        void Delete(Writer writer);
-        void Update(Writer writer);
-        List<Writer> GetWriterById(int id);
-        Writer GetById(int id);
+        void Add(User writer);
+        void Delete(User writer);
+        void Update(User writer);
+        List<User> GetWriterById(int id);
+        User GetById(int id);
     }
 }

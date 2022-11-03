@@ -6,6 +6,9 @@ namespace Business.Abstract
 {
     public interface IMessageService : IEntityService<Message>
     {
-        List<Message> GetInboxListByWriter(int receiver);
+        Message GetById(int id);
+        void Add(Message message);
+        List<Message> GetInBoxListByWriter(int id);
+        List<Message> GetSendBoxListByWriter(int id);
     }
 }

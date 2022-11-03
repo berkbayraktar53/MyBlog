@@ -19,7 +19,7 @@ namespace DataAccess.Concrete.EntityFramework
         public List<Blog> GetListWithCategoryByWriter(int writerId)
         {
             var context = new DatabaseContext();
-            return context.Blogs.Include(x => x.Category).Where(x => x.WriterId == writerId).ToList();
+            return context.Blogs.Include(x => x.Category).Where(x => x.UserId == writerId).ToList();
         }
 
         public List<Blog> GetSearchResult(string query)

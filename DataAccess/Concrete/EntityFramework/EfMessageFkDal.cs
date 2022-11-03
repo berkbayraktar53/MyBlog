@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfMessageFkDal : EfEntityRepositoryBase<MessageFk, DatabaseContext>, IMessageFkDal
+    public class EfMessageFkDal : EfEntityRepositoryBase<Message, DatabaseContext>, IMessageDal
     {
-        public List<MessageFk> GetInBoxListWithMessageByWriter(int id)
+        public List<Message> GetInBoxListWithMessageByWriter(int id)
         {
             var context = new DatabaseContext();
-            return context.MessageFks.Include(x => x.WriterSender).Where(x => x.ReceiverId == id).ToList();
+            return context.Messages.Include(x => x.UserSender).Where(x => x.ReceiverId == id).ToList();
         }
 
-        public List<MessageFk> GetSendBoxListWithMessageByWriter(int id)
+        public List<Message> GetSendBoxListWithMessageByWriter(int id)
         {
             var context = new DatabaseContext();
-            return context.MessageFks.Include(x => x.WriterReceiver).Where(x => x.SenderId == id).ToList();
+            return context.Messages.Include(x => x.UserReceiver).Where(x => x.SenderId == id).ToList();
         }
     }
 }

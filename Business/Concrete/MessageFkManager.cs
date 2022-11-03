@@ -6,38 +6,38 @@ using System.Linq;
 
 namespace Business.Concrete
 {
-    public class MessageFkManager : IMessageFkService
+    public class MessageFkManager : IMessageService
     {
-        private readonly IMessageFkDal _messageFkDal;
+        private readonly IMessageDal _messageDal;
 
-        public MessageFkManager(IMessageFkDal messageFkDal)
+        public MessageFkManager(IMessageDal messageDal)
         {
-            _messageFkDal = messageFkDal;
+            _messageDal = messageDal;
         }
 
-        public void Add(MessageFk message)
+        public void Add(Message message)
         {
-            _messageFkDal.Add(message);
+            _messageDal.Add(message);
         }
 
-        public MessageFk GetById(int id)
+        public Message GetById(int id)
         {
-            return _messageFkDal.GetById(id);
+            return _messageDal.GetById(id);
         }
 
-        public List<MessageFk> GetInBoxListByWriter(int id)
+        public List<Message> GetInBoxListByWriter(int id)
         {
-            return _messageFkDal.GetInBoxListWithMessageByWriter(id).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _messageDal.GetInBoxListWithMessageByWriter(id).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
 
-        public List<MessageFk> GetList()
+        public List<Message> GetList()
         {
-            return _messageFkDal.GetList();
+            return _messageDal.GetList();
         }
 
-        public List<MessageFk> GetSendBoxListByWriter(int id)
+        public List<Message> GetSendBoxListByWriter(int id)
         {
-            return _messageFkDal.GetSendBoxListWithMessageByWriter(id).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _messageDal.GetSendBoxListWithMessageByWriter(id).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
     }
 }

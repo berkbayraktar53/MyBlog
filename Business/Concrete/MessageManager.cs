@@ -24,5 +24,25 @@ namespace Business.Concrete
         {
             return _messageDal.GetList(x => x.ReceiverId == receiver && x.Status == true).OrderByDescending(x => x.Date).ToList();
         }
+
+        public List<Message> GetInBoxListByWriter(int id)
+        {
+            return _messageDal.GetInBoxListWithMessageByWriter(id).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+        }
+
+        public List<Message> GetSendBoxListByWriter(int id)
+        {
+            return _messageDal.GetSendBoxListWithMessageByWriter(id).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+        }
+
+        public Message GetById(int id)
+        {
+            return _messageDal.GetById(id);
+        }
+
+        public void Add(Message message)
+        {
+            _messageDal.Add(message);
+        }
     }
 }

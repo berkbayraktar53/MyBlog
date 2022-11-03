@@ -14,32 +14,32 @@ namespace Business.Concrete
             _writerDal = writerDal;
         }
 
-        public void Add(Writer writer)
+        public void Add(User writer)
         {
             _writerDal.Add(writer);
         }
 
-        public void Delete(Writer writer)
+        public void Delete(User writer)
         {
             _writerDal.Delete(writer);
         }
 
-        public Writer GetById(int id)
+        public User GetById(int id)
         {
             return _writerDal.GetById(id);
         }
 
-        public List<Writer> GetList()
+        public List<User> GetList()
         {
             return _writerDal.GetList();
         }
 
-        public List<Writer> GetWriterById(int id)
+        public List<User> GetWriterById(int id)
         {
-            return _writerDal.GetList(x => x.WriterId == id);
+            return _writerDal.GetList(x => x.Id == id);
         }
 
-        public void Update(Writer writer)
+        public void Update(User writer)
         {
             _writerDal.Update(writer);
         }
