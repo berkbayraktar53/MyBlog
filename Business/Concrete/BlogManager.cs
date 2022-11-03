@@ -1,8 +1,6 @@
 ﻿using Business.Abstract;
-using Business.ValidationRules.FluentValidation;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using FluentValidation.Results;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,27 +17,27 @@ namespace Business.Concrete
 
         public List<Blog> GetList()
         {
-            return _blogDal.GetList().OrderByDescending(x => x.Date).ToList(); ;
+            return _blogDal.GetList().OrderByDescending(x => x.AddedDate).ToList(); ;
         }
 
         public List<Blog> GetListById(int blogId)
         {
-            return _blogDal.GetList(x => x.BlogId == blogId).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetList(x => x.BlogId == blogId).Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public List<Blog> GetListWithCategory()
         {
-            return _blogDal.GetListWithCategory().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetListWithCategory().Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
 
-        public List<Blog> GetListByWriter(int writerId)
+        public List<Blog> GetListByUser(int userId)
         {
-            return _blogDal.GetList(x => x.UserId == writerId).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetList(x => x.UserId == userId).Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public List<Blog> GetLast3Blog()
         {
-            return _blogDal.GetListWithCategory().Where(x => x.Status == true).TakeLast(3).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetListWithCategory().Where(x => x.Status == true).TakeLast(3).OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public void Add(Blog blog)
@@ -47,9 +45,9 @@ namespace Business.Concrete
             _blogDal.Add(blog);
         }
 
-        public List<Blog> GetListWithCategoryByWriter(int writerID)
+        public List<Blog> GetListWithCategoryByUser(int userId)
         {
-            return _blogDal.GetListWithCategoryByWriter(writerID).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetListWithCategoryByUser(userId).Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public void Delete(Blog blog)
@@ -69,7 +67,7 @@ namespace Business.Concrete
 
         public List<Blog> GetListByActiveStatus()
         {
-            return _blogDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public List<Blog> GetListByMostRead()
@@ -84,7 +82,7 @@ namespace Business.Concrete
 
         public List<Blog> GetListByCategory(int categoryId)
         {
-            return _blogDal.GetListWithCategory().Where(x => x.Status == true && x.CategoryId == categoryId).OrderByDescending(x => x.Date).ToList();
+            return _blogDal.GetListWithCategory().Where(x => x.Status == true && x.CategoryId == categoryId).OrderByDescending(x => x.AddedDate).ToList();
         }
     }
 }

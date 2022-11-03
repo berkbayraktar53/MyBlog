@@ -1,10 +1,10 @@
-﻿using Core.DataAccess.Concrete.EntityFramework;
-using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework.Contexts;
+﻿using System.Linq;
 using Entities.Concrete;
-using Microsoft.EntityFrameworkCore;
+using DataAccess.Abstract;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Core.DataAccess.Concrete.EntityFramework;
+using DataAccess.Concrete.EntityFramework.Contexts;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -16,10 +16,10 @@ namespace DataAccess.Concrete.EntityFramework
             return context.Blogs.Include(x => x.Category).ToList();
         }
 
-        public List<Blog> GetListWithCategoryByWriter(int writerId)
+        public List<Blog> GetListWithCategoryByUser(int userId)
         {
             var context = new DatabaseContext();
-            return context.Blogs.Include(x => x.Category).Where(x => x.UserId == writerId).ToList();
+            return context.Blogs.Include(x => x.Category).Where(x => x.UserId == userId).ToList();
         }
 
         public List<Blog> GetSearchResult(string query)

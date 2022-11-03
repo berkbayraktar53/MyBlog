@@ -1,26 +1,28 @@
 ﻿using Business.Abstract;
-using Business.Concrete;
+using Entities.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Security.Claims;
 
 namespace WebUI.ViewComponents.Writer
 {
     public class WriterAboutOnDashboard : ViewComponent
     {
-        private readonly IWriterService _writerService;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
 
-        public WriterAboutOnDashboard(IWriterService writerService)
+        public WriterAboutOnDashboard(UserManager<User> userManager, IUserService userService)
         {
-            _writerService = writerService;
+            _userManager = userManager;
+            _userService = userService;
         }
 
         public IViewComponentResult Invoke()
         {
-            var userName = User.Identity.Name;
-            var writerEmail = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
-            var writerId = _writerService.GetList().Where(x => x.Email == writerEmail).Select(y => y.Id).FirstOrDefault();
-            var values = _writerService.GetWriterById(writerId);
+            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+            var userEmail = _userManager.FindByNameAsync(User.Identity.Name).Result.Email;
+            var writerId = _userService.GetList().Where(x => x.Email == userEmail).Select(y => y.Id).FirstOrDefault();
+            var values = _userService.GetById(writerId);
             return View(values);
         }
     }

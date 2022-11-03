@@ -17,7 +17,7 @@ namespace Business.Concrete
 
         public List<Notification> GetList()
         {
-            return _notificationDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _notificationDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
     }
 }

@@ -28,9 +28,9 @@
                     @foreach (var notification in Model)
                     {
                         <tr>
-                            <td>@notification.Type</td>
+                            <td>@notification.NotificationType</td>
                             <td>@notification.Detail</td>
-                            <td>@notification.Date.ToString("dd/MM/yyyy - HH:mm")</td>
+                            <td>@notification.AddedDate.ToString("dd/MM/yyyy - HH:mm")</td>
                         </tr>
                     }
                 </tbody>

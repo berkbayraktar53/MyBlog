@@ -28,9 +28,6 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<MessageManager>().As<IMessageService>();
             builder.RegisterType<EfMessageDal>().As<IMessageDal>();
 
-            builder.RegisterType<MessageFkManager>().As<IMessageFkService>();
-            builder.RegisterType<EfMessageFkDal>().As<IMessageFkDal>();
-
             builder.RegisterType<NewsletterManager>().As<INewsletterService>();
             builder.RegisterType<EfNewsletterDal>().As<INewsletterDal>();
 
@@ -39,9 +36,6 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
-
-            builder.RegisterType<WriterManager>().As<IWriterService>();
-            builder.RegisterType<EfWriterDal>().As<IWriterDal>();
         }
     }
 }

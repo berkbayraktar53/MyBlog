@@ -9,7 +9,7 @@ namespace Business.Abstract
         void Add(Category category);
         void Delete(Category category);
         void Update(Category category);
-        Category GetById(int id);
+        Category GetById(int categoryId);
         List<Category> GetListByActiveStatus();
         List<Category> GetListWithBlog();
     }

@@ -12,11 +12,11 @@ namespace Business.Abstract
         Blog GetById(int id);
         List<Blog> GetListWithCategory();
         List<Blog> GetListById(int blogId);
-        List<Blog> GetListByWriter(int writerId);
+        List<Blog> GetListByUser(int userId);
         List<Blog> GetListByActiveStatus();
         List<Blog> GetLast3Blog();
         List<Blog> GetListByMostRead();
-        List<Blog> GetListWithCategoryByWriter(int writerID);
+        List<Blog> GetListWithCategoryByUser(int userId);
         List<Blog> GetSearchResult(string query);
         List<Blog> GetListByCategory(int categoryId);
 

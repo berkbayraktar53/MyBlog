@@ -1,6 +1,6 @@
 ﻿using Entities.Concrete;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework.Contexts
 {

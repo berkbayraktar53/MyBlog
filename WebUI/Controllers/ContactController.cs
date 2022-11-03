@@ -34,7 +34,7 @@ namespace WebUI.Controllers
             ValidationResult validationResult = contactValidator.Validate(contact);
             if (validationResult.IsValid)
             {
-                contact.Date = DateTime.Now;
+                contact.AddedDate = DateTime.Now;
                 contact.Status = true;
                 _contactService.Add(contact);
                 _notyfService.Success("Mesajınız Gönderildi");

@@ -1,11 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -18,9 +14,9 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-        public User GetById(int id)
+        public User GetById(int userId)
         {
-            return _userDal.GetById(id);
+            return _userDal.GetById(userId);
         }
 
         public List<User> GetList()

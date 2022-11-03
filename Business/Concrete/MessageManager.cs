@@ -17,27 +17,22 @@ namespace Business.Concrete
 
         public List<Message> GetList()
         {
-            return _messageDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _messageDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
 
-        public List<Message> GetInboxListByWriter(int receiver)
+        public List<Message> GetInBoxListByUser(int userId)
         {
-            return _messageDal.GetList(x => x.ReceiverId == receiver && x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _messageDal.GetInBoxListWithMessageByUser(userId).Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
 
-        public List<Message> GetInBoxListByWriter(int id)
+        public List<Message> GetSendBoxListByUser(int userId)
         {
-            return _messageDal.GetInBoxListWithMessageByWriter(id).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
+            return _messageDal.GetSendBoxListWithMessageByUser(userId).Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
         }
 
-        public List<Message> GetSendBoxListByWriter(int id)
+        public Message GetById(int messageId)
         {
-            return _messageDal.GetSendBoxListWithMessageByWriter(id).Where(x => x.Status == true).OrderByDescending(x => x.Date).ToList();
-        }
-
-        public Message GetById(int id)
-        {
-            return _messageDal.GetById(id);
+            return _messageDal.GetById(messageId);
         }
 
         public void Add(Message message)

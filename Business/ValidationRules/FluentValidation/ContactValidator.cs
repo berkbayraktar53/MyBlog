@@ -7,7 +7,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ContactValidator()
         {
-            RuleFor(x => x.UserName)
+            RuleFor(x => x.NameSurname)
                 .NotEmpty().WithMessage("Lütfen adınızı soyadınızı giriniz")
                 .MinimumLength(5).WithMessage("Lütfen en az 5 karakter giriniz")
                 .MaximumLength(20).WithMessage("Lütfen 20 karakterden az giriniz");

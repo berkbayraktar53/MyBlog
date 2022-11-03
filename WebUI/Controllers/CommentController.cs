@@ -30,7 +30,7 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult AddComment(Comment comment)
         {
-            comment.Date = DateTime.Parse(DateTime.Now.ToShortDateString());
+            comment.AddedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             comment.Status = true;
             comment.BlogId = 2;
             _commentService.Add(comment);

@@ -10,16 +10,16 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfMessageDal : EfEntityRepositoryBase<Message, DatabaseContext>, IMessageDal
     {
-        public List<Message> GetInBoxListWithMessageByWriter(int id)
+        public List<Message> GetInBoxListWithMessageByUser(int userId)
         {
             var context = new DatabaseContext();
-            return context.Messages.Include(x => x.UserSender).Where(x => x.ReceiverId == id).ToList();
+            return context.Messages.Include(x => x.UserSender).Where(x => x.ReceiverId == userId).ToList();
         }
 
-        public List<Message> GetSendBoxListWithMessageByWriter(int id)
+        public List<Message> GetSendBoxListWithMessageByUser(int userId)
         {
             var context = new DatabaseContext();
-            return context.Messages.Include(x => x.UserReceiver).Where(x => x.SenderId == id).ToList();
+            return context.Messages.Include(x => x.UserReceiver).Where(x => x.SenderId == userId).ToList();
         }
     }
 }

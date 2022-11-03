@@ -1,23 +1,25 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace WebUI.ViewComponents.Writer
 {
     public class WriterProfileNavbar : ViewComponent
     {
-        private readonly IWriterService _writerService;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
 
-        public WriterProfileNavbar(IWriterService writerService)
+        public WriterProfileNavbar(UserManager<User> userManager, IUserService userService)
         {
-            _writerService = writerService;
+            _userManager = userManager;
+            _userService = userService;
         }
 
         public IViewComponentResult Invoke()
         {
-            var email = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.Email == email).Select(y => y.Id).FirstOrDefault();
-            var values = _writerService.GetWriterById(writerId);
+            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+            var values = _userService.GetById(userId);
             return View(values);
         }
     }

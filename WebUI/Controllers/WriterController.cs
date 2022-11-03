@@ -1,14 +1,10 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Business.Abstract;
-using Business.ValidationRules.FluentValidation;
 using Entities.Concrete;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using WebUI.Models;
 
@@ -19,39 +15,35 @@ namespace WebUI.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
-        private readonly IMessageFkService _messageFkService;
+        private readonly IMessageService _messageService;
         private readonly INotificationService _notificationService;
         private readonly INotyfService _notyfService;
         private readonly IUserService _userService;
-        private readonly IWriterService _writerService;
 
-        public WriterController(UserManager<User> userManager, IBlogService blogService, ICategoryService categoryService, IMessageFkService messageFkService, INotificationService notificationService, INotyfService notyfService, IUserService userService, IWriterService writerService)
+        public WriterController(UserManager<User> userManager, IBlogService blogService, ICategoryService categoryService, IMessageService messageService, INotificationService notificationService, INotyfService notyfService, IUserService userService)
         {
             _userManager = userManager;
             _blogService = blogService;
             _categoryService = categoryService;
-            _messageFkService = messageFkService;
+            _messageService = messageService;
             _notificationService = notificationService;
             _notyfService = notyfService;
             _userService = userService;
-            _writerService = writerService;
         }
 
         public IActionResult Dashboard()
         {
-            var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Id).FirstOrDefault();
-            ViewBag.totalBlogCount = _blogService.GetListWithCategoryByWriter(writerId).Count;
-            ViewBag.totalMessageCount = _messageFkService.GetInBoxListByWriter(writerId).Count;
+            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+            ViewBag.totalBlogCount = _blogService.GetListWithCategoryByUser(userId).Count;
+            ViewBag.totalMessageCount = _messageService.GetInBoxListByUser(userId).Count;
             ViewBag.totalNotificationCount = _notificationService.GetList().Count;
             return View();
         }
 
         public IActionResult Profile()
         {
-            var userName = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.UserName == userName).Select(y => y.Id).FirstOrDefault();
-            var values = _writerService.GetWriterById(writerId);
+            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+            var values = _userService.GetById(userId);
             return View(values);
         }
 
@@ -60,7 +52,7 @@ namespace WebUI.Controllers
         {
             UserUpdateViewModel model = new();
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
-            model.FullName = values.FullName;
+            model.FullName = values.NameSurname;
             model.UserName = values.UserName;
             model.Email = values.Email;
             model.ImageUrl = values.ImageUrl;
@@ -71,7 +63,7 @@ namespace WebUI.Controllers
         public async Task<IActionResult> EditProfile(UserUpdateViewModel model)
         {
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
-            values.FullName = model.FullName;
+            values.NameSurname = model.FullName;
             values.UserName = model.UserName;
             values.Email = model.Email;
             values.ImageUrl = model.ImageUrl;
@@ -102,7 +94,7 @@ namespace WebUI.Controllers
             writer.Email = writerProfileImage.Email;
             writer.UserName = writerProfileImage.Name;
             writer.PasswordHash = writerProfileImage.Password;
-            _writerService.Add(writer);
+            _userManager.CreateAsync(writer);
             return RedirectToAction("Dashboard", "Writer");
         }
     }

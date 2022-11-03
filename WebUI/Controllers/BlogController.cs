@@ -4,8 +4,8 @@ using Business.ValidationRules.FluentValidation;
 using Entities.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -16,17 +16,19 @@ namespace WebUI.Controllers
 {
     public class BlogController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
         private readonly INotyfService _notyfService;
-        private readonly IWriterService _writerService;
+        private readonly IUserService _userService;
 
-        public BlogController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService, INotyfService notyfService)
+        public BlogController(UserManager<User> userManager, IBlogService blogService, ICategoryService categoryService, IUserService userService, INotyfService notyfService)
         {
+            _userManager = userManager;
             _blogService = blogService;
             _categoryService = categoryService;
             _notyfService = notyfService;
-            _writerService = writerService;
+            _userService = userService;
         }
 
         [AllowAnonymous]
@@ -46,9 +48,8 @@ namespace WebUI.Controllers
 
         public IActionResult BlogListByWriter()
         {
-            var email = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.UserName == email).Select(y => y.Id).FirstOrDefault();
-            var values = _blogService.GetListWithCategoryByWriter(writerId);
+            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+            var values = _blogService.GetListWithCategoryByUser(userId);
             return View(values);
         }
 
@@ -58,7 +59,7 @@ namespace WebUI.Controllers
             List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
                                                    select new SelectListItem
                                                    {
-                                                       Text = x.Name,
+                                                       Text = x.CategoryName,
                                                        Value = x.CategoryId.ToString()
                                                    }).ToList();
             ViewBag.category = categoryValues;
@@ -72,11 +73,10 @@ namespace WebUI.Controllers
             ValidationResult result = blogValidator.Validate(blog);
             if (result.IsValid)
             {
-                var email = User.Identity.Name;
-                var writerId = _writerService.GetList().Where(x => x.UserName == email).Select(y => y.Id).FirstOrDefault();
-                blog.Date = DateTime.Now;
+                var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+                blog.AddedDate = DateTime.Now;
                 blog.Status = true;
-                blog.UserId = writerId;
+                blog.UserId = userId;
                 _blogService.Add(blog);
                 _notyfService.Success("Blog Eklendi");
                 return RedirectToAction("BlogListByWriter", "Blog");
@@ -86,7 +86,7 @@ namespace WebUI.Controllers
                 List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
                                                        select new SelectListItem
                                                        {
-                                                           Text = x.Name,
+                                                           Text = x.CategoryName,
                                                            Value = x.CategoryId.ToString()
                                                        }).ToList();
                 ViewBag.category = categoryValues;
@@ -115,7 +115,7 @@ namespace WebUI.Controllers
             List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
                                                    select new SelectListItem
                                                    {
-                                                       Text = x.Name,
+                                                       Text = x.CategoryName,
                                                        Value = x.CategoryId.ToString()
                                                    }).ToList();
             ViewBag.category = categoryValues;
@@ -129,7 +129,7 @@ namespace WebUI.Controllers
             ValidationResult result = blogValidator.Validate(blog);
             if (result.IsValid)
             {
-                blog.Date = DateTime.Now;
+                blog.AddedDate = DateTime.Now;
                 blog.Status = true;
                 _blogService.Update(blog);
                 _notyfService.Success("Blog Güncellendi");
@@ -140,7 +140,7 @@ namespace WebUI.Controllers
                 List<SelectListItem> categoryValues = (from x in _categoryService.GetList()
                                                        select new SelectListItem
                                                        {
-                                                           Text = x.Name,
+                                                           Text = x.CategoryName,
                                                            Value = x.CategoryId.ToString()
                                                        }).ToList();
                 ViewBag.category = categoryValues;

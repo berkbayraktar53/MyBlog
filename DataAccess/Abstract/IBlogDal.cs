@@ -1,5 +1,5 @@
-﻿using Core.DataAccess.Abstract;
-using Entities.Concrete;
+﻿using Entities.Concrete;
+using Core.DataAccess.Abstract;
 using System.Collections.Generic;
 
 namespace DataAccess.Abstract
@@ -7,7 +7,7 @@ namespace DataAccess.Abstract
     public interface IBlogDal : IEntityRepository<Blog>
     {
         List<Blog> GetListWithCategory();
-        List<Blog> GetListWithCategoryByWriter(int writerId);
         List<Blog> GetSearchResult(string query);
+        List<Blog> GetListWithCategoryByUser(int userId);
     }
 }

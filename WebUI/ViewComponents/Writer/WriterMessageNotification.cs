@@ -1,25 +1,27 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace WebUI.ViewComponents.Writer
 {
     public class WriterMessageNotification : ViewComponent
     {
-        private readonly IMessageFkService _messageFkService;
-        private readonly IWriterService _writerService;
+        private readonly UserManager<User> _userManager;
+        private readonly IMessageService _messageService;
+        private readonly IUserService _userService;
 
-        public WriterMessageNotification(IMessageFkService messageFkService, IWriterService writerService)
+        public WriterMessageNotification(UserManager<User> userManager, IMessageService messageService, IUserService userService)
         {
-            _messageFkService = messageFkService;
-            _writerService = writerService;
+            _userManager = userManager;
+            _messageService = messageService;
+            _userService = userService;
         }
 
         public IViewComponentResult Invoke()
         {
-            var name = User.Identity.Name;
-            var writerId = _writerService.GetList().Where(x => x.UserName == name).Select(y => y.Id).FirstOrDefault();
-            var values = _messageFkService.GetInBoxListByWriter(writerId);
+            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+            var values = _messageService.GetInBoxListByUser(userId);
             return View(values);
         }
     }

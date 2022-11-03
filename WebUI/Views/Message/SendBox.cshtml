@@ -29,9 +29,9 @@
                     @foreach (var message in Model)
                     {
                         <tr>
-                            <td><img src="@message.UserReceiver.ImageUrl" alt="image" /> &nbsp; @message.UserReceiver.FullName</td>
+                            <td><img src="@message.UserReceiver.ImageUrl" alt="image" /> &nbsp; @message.UserReceiver.NameSurname</td>
                             <td>@message.Subject</td>
-                            <td>@message.Date.ToString("dd/MM/yyyy - HH:mm")</td>
+                            <td>@message.AddedDate.ToString("dd/MM/yyyy - HH:mm")</td>
                             <td><a href="/Message/Detail/@message.MessageId" class="badge badge-success">Mesajı Aç</a></td>
                         </tr>
                     }

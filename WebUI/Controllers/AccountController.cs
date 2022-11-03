@@ -1,18 +1,8 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Business.Abstract;
-using Business.ValidationRules.FluentValidation;
-using DataAccess.Concrete.EntityFramework.Contexts;
 using Entities.Concrete;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using WebUI.Models;
 
@@ -69,7 +59,7 @@ namespace WebUI.Controllers
                 {
                     Email = userRegisterViewModel.Email,
                     UserName = userRegisterViewModel.UserName,
-                    FullName = userRegisterViewModel.FullName
+                    NameSurname = userRegisterViewModel.FullName
                 };
                 var result = await _userManager.CreateAsync(user, userRegisterViewModel.Password);
                 if (result.Succeeded)
