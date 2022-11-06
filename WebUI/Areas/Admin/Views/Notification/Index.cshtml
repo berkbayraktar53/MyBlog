@@ -1,6 +1,6 @@
-﻿@model List<Category>
+﻿@model List<Notification>
 @{
-    ViewData["Title"] = "Kategoriler";
+    ViewData["Title"] = "Bildirimler";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -10,8 +10,8 @@
             <div class="ibox">
                 <div class="ibox-title">
                     <div style="text-align:center">
-                        <a href="/Admin/Category/Add" class="badge badge-primary" style="float:left">Kategori Ekle</a>
-                        <h5>Kategoriler</h5>
+                        <a href="/Admin/Notification/Add" class="badge badge-primary" style="float:left">Bildirim Ekle</a>
+                        <h5>Bildirimler</h5>
                     </div>
                     <div class="ibox-tools">
                         <a class="collapse-link">
@@ -28,8 +28,10 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <th>Kategori Adı</th>
-                                    <th>Açıklama</th>
+                                    <th>Bildirim Adı</th>
+                                    <th>Bildirim Detayı</th>
+                                    <th>Eklenme Tarihi</th>
+                                    <th>Güncellenme Tarihi</th>
                                     <th>Durum</th>
                                     <th>Durum Değiştir</th>
                                     <th>Düzenle</th>
@@ -37,13 +39,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var category in Model)
+                                @foreach (var notification in Model)
                                 {
                                     <tr>
-                                        <td>@category.CategoryId</td>
-                                        <td>@category.CategoryName</td>
-                                        <td>@category.Description</td>
-                                        @if (category.Status == true)
+                                        <td>@notification.NotificationId</td>
+                                        <td>@notification.NotificationType</td>
+                                        <td>@notification.Detail.Substring(0, @notification.Detail.Substring(0, 15).LastIndexOf(" ")) ...</td>
+                                        <td>@notification.AddedDate.ToString("dd/MM/yyyy - HH:mm")</td>
+                                        <td>@notification.ModifiedDate.ToString("dd/MM/yyyy - HH:mm")</td>
+                                        @if (notification.Status == true)
                                         {
                                             <td>Aktif</td>
                                         }
@@ -51,16 +55,16 @@
                                         {
                                             <td>Pasif</td>
                                         }
-                                        @if (category.Status == true)
+                                        @if (notification.Status == true)
                                         {
-                                            <td><a href="/Admin/Category/ChangeStatus/@category.CategoryId" class="badge badge-success">Pasif Yap</a></td>
+                                            <td><a href="/Admin/Notification/ChangeStatus/@notification.NotificationId" class="badge badge-success">Pasif Yap</a></td>
                                         }
                                         else
                                         {
-                                            <td><a href="/Admin/Category/ChangeStatus/@category.CategoryId" class="badge badge-info">Aktif Yap</a></td>
+                                            <td><a href="/Admin/Notification/ChangeStatus/@notification.NotificationId" class="badge badge-info">Aktif Yap</a></td>
                                         }
-                                        <td><a href="/Admin/Category/Edit/@category.CategoryId" class="badge badge-warning">Düzenle</a></td>
-                                        <td><a href="/Admin/Category/Delete/@category.CategoryId" onclick="return confirm('Kategori silinecek. Onaylıyor musun?')" class="badge badge-danger">Sil</a></td>
+                                        <td><a href="/Admin/Notification/Edit/@notification.NotificationId" class="badge badge-warning">Düzenle</a></td>
+                                        <td><a href="/Admin/Notification/Delete/@notification.NotificationId" onclick="return confirm('Bildirim silinecek. Onaylıyor musun?')" class="badge badge-danger">Sil</a></td>
                                     </tr>
                                 }
                             </tbody>

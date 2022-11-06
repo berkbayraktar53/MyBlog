@@ -1,0 +1,60 @@
+﻿@model Notification
+@{
+    ViewData["Title"] = "Bildirim Düzenle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <div style="text-align:center">
+                    <h5>Bildirim Düzenle</h5>
+                </div>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form asp-action="Edit">
+                    <input type="hidden" class="form-control" asp-for="NotificationId" />
+                    <input type="hidden" class="form-control" asp-for="AddedDate" />
+                    <input type="hidden" class="form-control" asp-for="ModifiedDate" />
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Bildirim Adı</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" asp-for="NotificationType" autocomplete="off" />
+                            <span class="form-text m-b-none text-danger" asp-validation-for="TypeSymbol"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Bildirim Sembolü</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" asp-for="TypeSymbol" autocomplete="off" />
+                            <span class="form-text m-b-none text-danger" asp-validation-for="TypeSymbol"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Bildirim Detayı</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" asp-for="Detail" autocomplete="off" />
+                            <span class="form-text m-b-none text-danger" asp-validation-for="Detail"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-11 col-sm-offset-2 text-center">
+                            <a href="/Admin/Notification/Index" class="btn btn-info btn-sm" type="submit">İptal</a>
+                            <button class="btn btn-primary btn-sm" type="submit">Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

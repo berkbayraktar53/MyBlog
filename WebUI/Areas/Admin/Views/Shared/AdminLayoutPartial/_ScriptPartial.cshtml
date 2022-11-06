@@ -3,6 +3,8 @@
 <script src="~/templates/admin/js/bootstrap.js"></script>
 <script src="~/templates/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="~/templates/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="~/templates/admin/js/plugins/dataTables/datatables.min.js"></script>
+<script src="~/templates/admin/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
 <script src="~/templates/admin/js/plugins/peity/jquery.peity.min.js"></script>
 <script src="~/templates/admin/js/inspinia.js"></script>
 <script src="~/templates/admin/js/plugins/pace/pace.min.js"></script>
@@ -13,6 +15,35 @@
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.dataTables-example').DataTable({
+            pageLength: 5,
+            responsive: true,
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+            },
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy' },
+                { extend: 'csv' },
+                { extend: 'excel', title: 'Liste' },
+                { extend: 'pdf', title: 'Liste' },
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
         });
     });
 </script>

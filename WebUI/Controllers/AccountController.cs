@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Business.Concrete;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -34,8 +35,18 @@ namespace WebUI.Controllers
             var result = await _signInManager.PasswordSignInAsync(userLoginViewModel.UserName, userLoginViewModel.Password, false, true);
             if (result.Succeeded)
             {
-                _notyfService.Success("Hoşgeldiniz");
-                return RedirectToAction("Dashboard", "Writer");
+                var user = _userManager.FindByNameAsync(userLoginViewModel.UserName).Result;
+                var getRoles = _userManager.GetRolesAsync(user).Result;
+                if (getRoles.Contains("Admin"))
+                {
+                    _notyfService.Success("Hoşgeldin Admin");
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                }
+                else
+                {
+                    _notyfService.Success("Hoşgeldiniz");
+                    return RedirectToAction("Dashboard", "Writer");
+                }
             }
             else
             {

@@ -2,18 +2,15 @@
 using Business.ValidationRules.FluentValidation;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System;
-using X.PagedList;
 using FluentValidation.Results;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
+using X.PagedList;
 
 namespace WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -25,9 +22,9 @@ namespace WebUI.Areas.Admin.Controllers
             _notyfService = notyfService;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index()
         {
-            var values = _categoryService.GetList().ToPagedList(page, 5);
+            var values = _categoryService.GetList();
             return View(values);
         }
 
