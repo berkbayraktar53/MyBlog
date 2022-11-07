@@ -18,13 +18,15 @@ namespace WebUI.Areas.Admin.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
+        private readonly ICommentService _commentService;
         private readonly INotyfService _notyfService;
         private readonly IUserService _userService;
 
-        public BlogController(IBlogService blogService, ICategoryService categoryService, INotyfService notyfService, IUserService userService)
+        public BlogController(IBlogService blogService, ICategoryService categoryService, ICommentService commentService, INotyfService notyfService, IUserService userService)
         {
             _blogService = blogService;
             _categoryService = categoryService;
+            _commentService = commentService;
             _notyfService = notyfService;
             _userService = userService;
         }

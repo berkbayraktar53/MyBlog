@@ -1,6 +1,6 @@
-﻿@model List<Blog>
+﻿@model List<Comment>
 @{
-    ViewData["Title"] = "Bloglar";
+    ViewData["Title"] = "Yorumlar";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -10,8 +10,8 @@
             <div class="ibox">
                 <div class="ibox-title">
                     <div style="text-align:center">
-                        <a href="/Admin/Blog/Add" class="badge badge-primary" style="float:left">Blog Ekle</a>
-                        <h5>Bloglar</h5>
+                        <a href="/Admin/Comment/Add" class="badge badge-primary" style="float:left">Yorum Ekle</a>
+                        <h5>Yorumlar</h5>
                     </div>
                     <div class="ibox-tools">
                         <a class="collapse-link">
@@ -28,12 +28,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Blog Resmi</th>
+                                    <th>Adı Soyadı</th>
+                                    <th>Mail Adresi</th>
+                                    <th>Yorum Konusu</th>
+                                    <th>Yorum Mesajı</th>
                                     <th>Blog Başlığı</th>
-                                    <th>Kategori</th>
-                                    <th>Yazar</th>
                                     <th>Eklenme Tarihi</th>
-                                    <th>Düzenlenme Tarihi</th>
                                     <th>Görüntüle</th>
                                     <th>Durum Değiştir</th>
                                     <th>Düzenle</th>
@@ -41,27 +41,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var blog in Model)
+                                @foreach (var comment in Model)
                                 {
                                     <tr>
-                                        <td>@blog.BlogId</td>
-                                        <td class="text-center"><img src="@blog.Image" class="btn-circle" /></td>
-                                        <td>@blog.Title</td>
-                                        <td>@blog.Category.CategoryName</td>
-                                        <td>@blog.User.NameSurname</td>
-                                        <td>@blog.AddedDate.ToString("dd/MM/yyyy - HH:mm")</td>
-                                        <td>@blog.ModifiedDate.ToString("dd/MM/yyyy - HH:mm")</td>
-                                        <td><a href="/Blog/Detail/@blog.BlogId" target="_blank" class="badge badge-secondary">Görüntüle</a></td>
-                                        @if (blog.Status == true)
+                                        <td>@comment.CommentId</td>
+                                        <td>@comment.NameSurname</td>
+                                        <td>@comment.Email.Substring(0, 15) ...</td>
+                                        <td>@comment.Subject</td>
+                                        <td>@comment.Message.Substring(0, @comment.Message.Substring(0, 10).LastIndexOf(" ")) ...</td>
+                                        <td>@comment.Blog.Title</td>
+                                        <td>@comment.AddedDate.ToString("dd/MM/yyyy - HH:mm")</td>
+                                        <td><a href="/Blog/Detail/@comment.BlogId" target="_blank" class="badge badge-secondary">Görüntüle</a></td>
+                                        @if (comment.Status == true)
                                         {
-                                            <td><a href="/Admin/Blog/ChangeStatus/@blog.BlogId" class="badge badge-success">Pasif Yap</a></td>
+                                            <td><a href="/Admin/Comment/ChangeStatus/@comment.CommentId" class="badge badge-success">Pasif Yap</a></td>
                                         }
                                         else
                                         {
-                                            <td><a href="/Admin/Blog/ChangeStatus/@blog.BlogId" class="badge badge-info">Aktif Yap</a></td>
+                                            <td><a href="/Admin/Comment/ChangeStatus/@comment.CommentId" class="badge badge-info">Aktif Yap</a></td>
                                         }
-                                        <td><a href="/Admin/Blog/Edit/@blog.BlogId" class="badge badge-warning">Düzenle</a></td>
-                                        <td><a href="/Admin/Blog/Delete/@blog.BlogId" onclick="return confirm('Blog silinecek. Onaylıyor musun?')" class="badge badge-danger">Sil</a></td>
+                                        <td><a href="/Admin/Comment/Edit/@comment.CommentId" class="badge badge-warning">Düzenle</a></td>
+                                        <td><a href="/Admin/Comment/Delete/@comment.CommentId" onclick="return confirm('Yorum silinecek. Onaylıyor musun?')" class="badge badge-danger">Sil</a></td>
                                     </tr>
                                 }
                             </tbody>

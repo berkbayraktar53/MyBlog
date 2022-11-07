@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
-using DataAccess.Abstract;
 using Entities.Concrete;
+using DataAccess.Abstract;
 using System.Collections.Generic;
 
 namespace Business.Concrete
@@ -19,6 +19,16 @@ namespace Business.Concrete
             _commentDal.Add(comment);
         }
 
+        public void Delete(Comment comment)
+        {
+            _commentDal.Delete(comment);
+        }
+
+        public Comment GetById(int id)
+        {
+            return _commentDal.GetById(id);
+        }
+
         public List<Comment> GetList()
         {
             return _commentDal.GetList();
@@ -32,6 +42,11 @@ namespace Business.Concrete
         public List<Comment> GetListWithBlog()
         {
             return _commentDal.GetListWithBlog();
+        }
+
+        public void Update(Comment comment)
+        {
+            _commentDal.Update(comment);
         }
     }
 }
