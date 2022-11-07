@@ -19,6 +19,7 @@ namespace Business.Abstract
         List<Blog> GetListWithCategoryByUser(int userId);
         List<Blog> GetSearchResult(string query);
         List<Blog> GetListByCategory(int categoryId);
+        List<Blog> GetListWithCategoryAndUser();
 
     }
 }

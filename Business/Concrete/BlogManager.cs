@@ -84,5 +84,10 @@ namespace Business.Concrete
         {
             return _blogDal.GetListWithCategory().Where(x => x.Status == true && x.CategoryId == categoryId).OrderByDescending(x => x.AddedDate).ToList();
         }
+
+        public List<Blog> GetListWithCategoryAndUser()
+        {
+            return _blogDal.GetListWithCategoryAndUser();
+        }
     }
 }

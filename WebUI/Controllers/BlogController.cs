@@ -42,6 +42,11 @@ namespace WebUI.Controllers
         public IActionResult Detail(int id)
         {
             @ViewBag.commentId = id;
+            var blogStatus = _blogService.GetById(id).Status;
+            if (blogStatus == false)
+            {
+                return RedirectToAction("Error404", "ErrorPage");
+            }
             var values = _blogService.GetListById(id);
             return View(values);
         }

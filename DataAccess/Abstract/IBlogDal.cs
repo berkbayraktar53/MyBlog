@@ -9,5 +9,6 @@ namespace DataAccess.Abstract
         List<Blog> GetListWithCategory();
         List<Blog> GetSearchResult(string query);
         List<Blog> GetListWithCategoryByUser(int userId);
+        List<Blog> GetListWithCategoryAndUser();
     }
 }

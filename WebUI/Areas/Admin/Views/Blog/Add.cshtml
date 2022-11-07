@@ -1,0 +1,70 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "Blog Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <div style="text-align:center">
+                        <h5>Blog Ekle</h5>
+                    </div>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form asp-action="Add">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Blog Resmi</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Image" autocomplete="off" />
+                                <span class="form-text m-b-none text-danger" asp-validation-for="Image"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Blog Başlığı</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Title" autocomplete="off" />
+                                <span class="form-text m-b-none text-danger" asp-validation-for="Title"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kategori</label>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.categories, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Yazar</label>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(x => x.UserId, (List<SelectListItem>)ViewBag.users, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Blog İçeriği</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="4" cols="50" asp-for="Content"></textarea>
+                                <span class="form-text m-b-none text-danger" asp-validation-for="Content"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-11 col-sm-offset-2 text-center">
+                                <a href="/Admin/Blog/Index" class="btn btn-info btn-sm" type="submit">İptal</a>
+                                <button class="btn btn-primary btn-sm" type="submit">Kaydet</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
