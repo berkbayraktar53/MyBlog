@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Core.Entities.Abstract;
+using Microsoft.AspNetCore.Identity;
 
 namespace Entities.Concrete
 {
-    public class Role : IdentityRole<int>
+    public class Role : IdentityRole<int>, IEntity
     {
 
     }

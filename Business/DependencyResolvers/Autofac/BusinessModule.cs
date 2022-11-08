@@ -34,6 +34,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<NotificationManager>().As<INotificationService>();
             builder.RegisterType<EfNotificationDal>().As<INotificationDal>();
 
+            builder.RegisterType<RoleManager>().As<IRoleService>();
+            builder.RegisterType<EfRoleDal>().As<IRoleDal>();
+
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
         }

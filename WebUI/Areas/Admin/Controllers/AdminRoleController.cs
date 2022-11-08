@@ -1,66 +1,74 @@
-﻿using Entities.Concrete;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Linq;
+using WebUI.Models;
+using Business.Abstract;
+using Entities.Concrete;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebUI.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using WebUI.Areas.Admin.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin, Moderator")]
+    [Authorize(Roles = "Admin")]
     public class AdminRoleController : Controller
     {
         private readonly RoleManager<Role> _roleManager;
-        private readonly UserManager<Role> _userManager;
+        private readonly INotyfService _notyfService;
+        private readonly IRoleService _roleService;
 
-        public AdminRoleController(RoleManager<Role> roleManager, UserManager<Role> userManager)
+        public AdminRoleController(RoleManager<Role> roleManager, INotyfService notyfService, IRoleService roleService)
         {
             _roleManager = roleManager;
-            _userManager = userManager;
+            _notyfService = notyfService;
+            _roleService = roleService;
         }
 
         public IActionResult Index()
         {
-            var values = _roleManager.Roles.ToList();
+            var values = _roleService.GetList();
             return View(values);
         }
 
         [HttpGet]
-        public IActionResult AddRole()
+        public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddRole(AdminRoleViewModel adminRoleViewModel)
+        public async Task<IActionResult> Add(RoleViewModel roleViewModel)
         {
             if (ModelState.IsValid)
             {
-                Role role = new Role
+                Role role = new()
                 {
-                    Name = adminRoleViewModel.RoleName
+                    Name = roleViewModel.RoleName,
+                    NormalizedName=roleViewModel.RoleName
                 };
                 var result = await _roleManager.CreateAsync(role);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    _notyfService.Success("Rol Eklendi");
+                    return RedirectToAction("Index", "AdminRole");
                 }
                 foreach (var item in result.Errors)
                 {
                     ModelState.AddModelError("", item.Description);
                 }
             }
-            return View(adminRoleViewModel);
+            _notyfService.Error("Rol Eklenemedi");
+            return View();
         }
 
         [HttpGet]
-        public IActionResult UpdateRole(int id)
+        public IActionResult Edit(int id)
         {
             var values = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
-            AdminRoleUpdateViewModel model = new AdminRoleUpdateViewModel
+            RoleUpdateViewModel model = new()
             {
                 Id = values.Id,
                 Name = values.Name
@@ -69,52 +77,31 @@ namespace WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateRole(AdminRoleUpdateViewModel model)
+        public async Task<IActionResult> Edit(RoleUpdateViewModel roleUpdateViewModel)
         {
-            var values = _roleManager.Roles.Where(X => X.Id == model.Id).FirstOrDefault();
-            values.Name = model.Name;
+            var values = _roleManager.Roles.Where(X => X.Id == roleUpdateViewModel.Id).FirstOrDefault();
+            values.Name = roleUpdateViewModel.Name;
             var result = await _roleManager.UpdateAsync(values);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index");
+                _notyfService.Success("Rol Güncellendi");
+                return RedirectToAction("Index", "AdminRole");
             }
-            return View(model);
+            _notyfService.Error("Rol Güncellenemedi");
+            return View();
         }
 
-        public async Task<IActionResult> DeleteRole(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var values = _roleManager.Roles.FirstOrDefault(X => X.Id == id);
             var result = await _roleManager.DeleteAsync(values);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index");
+                _notyfService.Success("Rol Silindi");
+                return RedirectToAction("Index", "AdminRole");
             }
-            return View();
-        }
-
-        public IActionResult UserRoleList()
-        {
-            var values = _userManager.Users.ToList();
+            _notyfService.Error("Rol Silinemedi");
             return View(values);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AssignRole(int id)
-        {
-            var user = _userManager.Users.FirstOrDefault(X => X.Id == id);
-            var roles = _roleManager.Roles.ToList();
-            TempData["UserId"] = user.Id;
-            var userRoles = await _userManager.GetRolesAsync(user);
-            List<RoleAssignViewModel> model = new List<RoleAssignViewModel>();
-            foreach (var item in roles)
-            {
-                RoleAssignViewModel m = new RoleAssignViewModel();
-                m.RoleId = item.Id;
-                m.Name = item.Name;
-                m.Exists = userRoles.Contains(item.Name);
-                model.Add(m);
-            }
-            return View(model);
         }
     }
 }
