@@ -8,6 +8,7 @@ namespace Entities.Concrete
     {
         public string NameSurname { get; set; }
         public string ImageUrl { get; set; }
+        public bool Status { get; set; }
         public List<Blog> Blogs { get; set; }
         public virtual ICollection<Message> UserReceiver { get; set; }
         public virtual ICollection<Message> UserSender { get; set; }

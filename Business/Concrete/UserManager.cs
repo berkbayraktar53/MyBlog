@@ -14,6 +14,16 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
+        public void Add(User user)
+        {
+            _userDal.Add(user);
+        }
+
+        public void Delete(User user)
+        {
+            _userDal.Delete(user);
+        }
+
         public User GetById(int userId)
         {
             return _userDal.GetById(userId);
@@ -22,6 +32,11 @@ namespace Business.Concrete
         public List<User> GetList()
         {
             return _userDal.GetList();
+        }
+
+        public List<User> GetListWithBlog()
+        {
+            return _userDal.GetListWithBlog();
         }
 
         public void Update(User user)
