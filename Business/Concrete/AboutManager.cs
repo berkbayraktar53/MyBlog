@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
-using DataAccess.Abstract;
 using Entities.Concrete;
+using DataAccess.Abstract;
 using System.Collections.Generic;
 
 namespace Business.Concrete
@@ -14,9 +14,29 @@ namespace Business.Concrete
             _aboutDal = aboutDal;
         }
 
+        public void Add(About about)
+        {
+            _aboutDal.Add(about);
+        }
+
+        public void Delete(About about)
+        {
+            _aboutDal.Delete(about);
+        }
+
+        public About GetById(int id)
+        {
+            return _aboutDal.GetById(id);
+        }
+
         public List<About> GetList()
         {
             return _aboutDal.GetList();
+        }
+
+        public void Update(About about)
+        {
+            _aboutDal.Update(about);
         }
     }
 }
