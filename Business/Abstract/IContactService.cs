@@ -1,5 +1,6 @@
 ﻿using Entities.Concrete;
 using Core.Business.Abstract;
+using System.Collections.Generic;
 
 namespace Business.Abstract
 {
@@ -9,5 +10,6 @@ namespace Business.Abstract
         void Delete(Contact contact);
         void Update(Contact contact);
         Contact GetById(int id);
+        List<Contact> GetLast5ContactMessage();
     }
 }

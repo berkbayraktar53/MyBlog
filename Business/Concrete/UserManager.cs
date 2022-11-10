@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -27,6 +28,11 @@ namespace Business.Concrete
         public User GetById(int userId)
         {
             return _userDal.GetById(userId);
+        }
+
+        public List<User> GetLast10WriterList()
+        {
+            return _userDal.GetList().TakeLast(10).OrderByDescending(x => x.Id).ToList();
         }
 
         public List<User> GetList()

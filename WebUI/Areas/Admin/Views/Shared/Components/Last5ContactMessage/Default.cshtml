@@ -1,0 +1,33 @@
+﻿@model List<Contact>
+<div class="col-lg-4">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>Gelen İletişim Mesajları</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="feed-activity-list">
+                @foreach (var contact in Model)
+                {
+                    <div class="feed-element">
+                        <div>
+                            <small class="text-muted float-right">@contact.AddedDate.ToString("dd/MM/yyyy - HH:mm")</small>
+                            <strong style="display:flex;justify-content:center">@contact.NameSurname</strong>
+                            <div><b>Email:</b> @contact.Email</div>
+                            <div><b>Konu:</b> @contact.Subject</div>
+                            <div><b>Mesaj:</b> @contact.Message</div>
+                        </div>
+                    </div>
+                }
+                <a href="/Admin/Contact/Index" class="btn btn-light btn-block m-t">Tümünü Görüntüle</a>
+            </div>
+        </div>
+    </div>
+</div>

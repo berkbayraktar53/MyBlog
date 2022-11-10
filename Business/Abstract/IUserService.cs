@@ -11,5 +11,6 @@ namespace Business.Abstract
         void Update(User user);
         User GetById(int userId);
         List<User> GetListWithBlog();
+        List<User> GetLast10WriterList();
     }
 }

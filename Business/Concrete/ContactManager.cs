@@ -2,6 +2,7 @@
 using Entities.Concrete;
 using DataAccess.Abstract;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -32,6 +33,11 @@ namespace Business.Concrete
         public List<Contact> GetList()
         {
             return _contactDal.GetList();
+        }
+
+        public List<Contact> GetLast5ContactMessage()
+        {
+            return _contactDal.GetList().TakeLast(5).OrderByDescending(x => x.AddedDate).ToList();
         }
 
         public void Update(Contact contact)

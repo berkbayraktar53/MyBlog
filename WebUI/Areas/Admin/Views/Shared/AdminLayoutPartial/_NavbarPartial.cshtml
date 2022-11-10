@@ -3,18 +3,14 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <img alt="image" class="rounded-circle" src="~/templates/admin/img/profile_small.jpg" />
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">Kerem Berk Bayraktar</span>
-                        <span class="text-muted text-xs block">Hızlı Menü <b class="caret"></b></span>
-                    </a>
+                    @await Component.InvokeAsync("WriterProfileName")
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="dropdown-item" href="profile.html">Hakkımda</a></li>
-                        <li><a class="dropdown-item" href="contacts.html">İletişim</a></li>
-                        <li><a class="dropdown-item" href="contacts.html">Mesaj Gönder</a></li>
-                        <li><a class="dropdown-item" href="mailbox.html">Şifre Değiştir</a></li>
+                        <li><a class="dropdown-item" href="/Admin/About/Index">Hakkımda</a></li>
+                        <li><a class="dropdown-item" href="/Admin/Contact/Index">İletişim</a></li>
+                        <li><a class="dropdown-item" href="/Admin/Message/SendMessage">Mesaj Gönder</a></li>
+                        <li><a class="dropdown-item" href="/Admin/Setting/ChangePassword">Şifre Değiştir</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="login.html">Çıkış Yap</a></li>
+                        <li><a class="dropdown-item" href="/Account/LogOut">Çıkış Yap</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">

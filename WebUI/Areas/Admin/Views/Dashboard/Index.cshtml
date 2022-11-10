@@ -1,8 +1,61 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
-
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Toplam Blog Sayısı</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.totalBlogCount</h1>
+                    <div class="stat-percent font-bold text-info"><i class="fa fa-check-square"></i></div>
+                    <small><a href="/Admin/Blog/Index">Görüntüle</a></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Toplam Yazar Sayısı</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.totalUserCount</h1>
+                    <div class="stat-percent font-bold text-info"><i class="fa fa-check-square"></i></div>
+                    <small><a href="/Admin/Writer/Index">Görüntüle</a></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Toplam Mesaj Sayısı</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.totalMessageCount</h1>
+                    <div class="stat-percent font-bold text-info"><i class="fa fa-check-square"></i></div>
+                    <small><a href="/Admin/Message/InBox">Görüntüle</a></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Toplm Bildirim Sayısı</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.totalNotificationCount</h1>
+                    <div class="stat-percent font-bold text-info"><i class="fa fa-check-square"></i></div>
+                    <small><a href="/Admin/Notification/Index">Görüntüle</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @await Component.InvokeAsync("Last10WriterList")
+        @await Component.InvokeAsync("Last5ContactMessage")
+    </div>
+</div>
