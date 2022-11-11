@@ -14,7 +14,7 @@ namespace WebUI.Controllers
 
         public IActionResult AllNotification()
         {
-            var values = _notificationService.GetList();
+            var values = _notificationService.GetListByActiveStatus();
             return View(values);
         }
     }

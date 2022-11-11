@@ -32,10 +32,10 @@
                                     <th>Blog Başlığı</th>
                                     <th>Kategori</th>
                                     <th>Yazar</th>
-                                    <th>Eklenme Tarihi</th>
                                     <th>Düzenlenme Tarihi</th>
-                                    <th>Görüntüle</th>
+                                    <th>Durum</th>
                                     <th>Durum Değiştir</th>
+                                    <th>Görüntüle</th>
                                     <th>Düzenle</th>
                                     <th>Sil</th>
                                 </tr>
@@ -49,9 +49,15 @@
                                         <td>@blog.Title</td>
                                         <td>@blog.Category.CategoryName</td>
                                         <td>@blog.User.NameSurname</td>
-                                        <td>@blog.AddedDate.ToString("dd/MM/yyyy - HH:mm")</td>
                                         <td>@blog.ModifiedDate.ToString("dd/MM/yyyy - HH:mm")</td>
-                                        <td><a href="/Blog/Detail/@blog.BlogId" target="_blank" class="badge badge-secondary">Görüntüle</a></td>
+                                        @if (blog.Status == true)
+                                        {
+                                            <td class="text-center"><i class="fa fa-check text-navy"></i></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center"><i class="fa fa-times text-danger"></i></td>
+                                        }
                                         @if (blog.Status == true)
                                         {
                                             <td><a href="/Admin/Blog/ChangeStatus/@blog.BlogId" class="badge badge-success">Pasif Yap</a></td>
@@ -60,6 +66,7 @@
                                         {
                                             <td><a href="/Admin/Blog/ChangeStatus/@blog.BlogId" class="badge badge-info">Aktif Yap</a></td>
                                         }
+                                        <td><a href="/Blog/Detail/@blog.BlogId" target="_blank" class="badge badge-secondary">Görüntüle</a></td>
                                         <td><a href="/Admin/Blog/Edit/@blog.BlogId" class="badge badge-warning">Düzenle</a></td>
                                         <td><a href="/Admin/Blog/Delete/@blog.BlogId" onclick="return confirm('Blog silinecek. Onaylıyor musun?')" class="badge badge-danger">Sil</a></td>
                                     </tr>

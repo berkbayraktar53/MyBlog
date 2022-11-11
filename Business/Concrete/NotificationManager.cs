@@ -15,14 +15,14 @@ namespace Business.Concrete
             _notificationDal = notificationDal;
         }
 
-        public void Add(Notification notification)
+        public void Add(Notification entity)
         {
-            _notificationDal.Add(notification);
+            _notificationDal.Add(entity);
         }
 
-        public void Delete(Notification notification)
+        public void Delete(Notification entity)
         {
-            _notificationDal.Delete(notification);
+            _notificationDal.Delete(entity);
         }
 
         public Notification GetById(int notificationId)
@@ -40,9 +40,9 @@ namespace Business.Concrete
             return _notificationDal.GetList().Where(x => x.Status == true).OrderByDescending(x => x.ModifiedDate).ToList();
         }
 
-        public void Update(Notification notification)
+        public void Update(Notification entity)
         {
-            _notificationDal.Update(notification);
+            _notificationDal.Update(entity);
         }
     }
 }

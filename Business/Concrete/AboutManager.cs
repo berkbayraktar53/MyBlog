@@ -14,14 +14,14 @@ namespace Business.Concrete
             _aboutDal = aboutDal;
         }
 
-        public void Add(About about)
+        public void Add(About entity)
         {
-            _aboutDal.Add(about);
+            _aboutDal.Add(entity);
         }
 
-        public void Delete(About about)
+        public void Delete(About entity)
         {
-            _aboutDal.Delete(about);
+            _aboutDal.Delete(entity);
         }
 
         public About GetById(int id)
@@ -34,9 +34,9 @@ namespace Business.Concrete
             return _aboutDal.GetList();
         }
 
-        public void Update(About about)
+        public void Update(About entity)
         {
-            _aboutDal.Update(about);
+            _aboutDal.Update(entity);
         }
     }
 }

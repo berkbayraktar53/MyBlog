@@ -29,7 +29,14 @@
                 </thead>
                 <tbody>
                     <tr style="text-align:center">
-                        <td><img src="@Model.ImageUrl" alt="resim bulunamadı" /></td>
+                        @if (Model.ImageUrl == null)
+                        {
+                            <td class="text-center"><img src="~/templates/admin/img/profile1.png" class="btn-circle" /></td>
+                        }
+                        else
+                        {
+                            <td class="text-center"><img alt="resim" class="rounded-circle" width="48" height="48" src="@Model.ImageUrl" /></td>
+                        }
                         <td>@Model.NameSurname</td>
                         <td>@Model.UserName</td>
                         <td>@Model.Email</td>

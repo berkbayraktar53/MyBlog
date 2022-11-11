@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using FluentValidation.Results;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
-using X.PagedList;
 
 namespace WebUI.Areas.Admin.Controllers
 {

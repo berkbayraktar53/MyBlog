@@ -22,12 +22,12 @@ namespace Business.Concrete
 
         public List<Message> GetInBoxListByUser(int userId)
         {
-            return _messageDal.GetInBoxListWithMessageByUser(userId).OrderByDescending(x => x.AddedDate).ToList();
+            return _messageDal.GetInBoxListWithMessageByUser(userId).OrderByDescending(x => x.ModifiedDate).ToList();
         }
 
         public List<Message> GetSendBoxListByUser(int userId)
         {
-            return _messageDal.GetSendBoxListWithMessageByUser(userId).OrderByDescending(x => x.AddedDate).ToList();
+            return _messageDal.GetSendBoxListWithMessageByUser(userId).OrderByDescending(x => x.ModifiedDate).ToList();
         }
 
         public Message GetById(int messageId)
@@ -35,29 +35,29 @@ namespace Business.Concrete
             return _messageDal.GetById(messageId);
         }
 
-        public void Add(Message message)
+        public void Add(Message entity)
         {
-            _messageDal.Add(message);
+            _messageDal.Add(entity);
         }
 
-        public void Delete(Message message)
+        public void Delete(Message entity)
         {
-            _messageDal.Delete(message);
+            _messageDal.Delete(entity);
         }
 
-        public void Update(Message message)
+        public void Update(Message entity)
         {
-            _messageDal.Update(message);
+            _messageDal.Update(entity);
         }
 
         public List<Message> GetInBoxListByUserWithActiveStatus(int userId)
         {
-            return _messageDal.GetInBoxListWithMessageByUser(userId).Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
+            return _messageDal.GetInBoxListWithMessageByUser(userId).Where(x => x.Status == true).OrderByDescending(x => x.ModifiedDate).ToList();
         }
 
         public List<Message> GetSendBoxListByUserWithActiveStatus(int userId)
         {
-            return _messageDal.GetSendBoxListWithMessageByUser(userId).Where(x => x.Status == true).OrderByDescending(x => x.AddedDate).ToList();
+            return _messageDal.GetSendBoxListWithMessageByUser(userId).Where(x => x.Status == true).OrderByDescending(x => x.ModifiedDate).ToList();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace WebUI.Controllers
         [AllowAnonymous]
         public IActionResult Index(int page = 1)
         {
-            var values = _blogService.GetListWithCategory().ToPagedList(page, 12);
+            var values = _blogService.GetListWithCategoryAndComment().ToPagedList(page, 12);
             return View(values);
         }
 

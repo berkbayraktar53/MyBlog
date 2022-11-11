@@ -29,13 +29,12 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Adı Soyadı</th>
-                                    <th>Mail Adresi</th>
-                                    <th>Yorum Konusu</th>
-                                    <th>Yorum Mesajı</th>
                                     <th>Blog Başlığı</th>
+                                    <th>Yapılan Yorum</th>
                                     <th>Eklenme Tarihi</th>
-                                    <th>Görüntüle</th>
+                                    <th>Durum</th>
                                     <th>Durum Değiştir</th>
+                                    <th>Görüntüle</th>
                                     <th>Düzenle</th>
                                     <th>Sil</th>
                                 </tr>
@@ -46,12 +45,17 @@
                                     <tr>
                                         <td>@comment.CommentId</td>
                                         <td>@comment.NameSurname</td>
-                                        <td>@comment.Email.Substring(0, 15) ...</td>
-                                        <td>@comment.Subject</td>
-                                        <td>@comment.Message.Substring(0, @comment.Message.Substring(0, 10).LastIndexOf(" ")) ...</td>
                                         <td>@comment.Blog.Title</td>
+                                        <td>@comment.Message</td>
                                         <td>@comment.AddedDate.ToString("dd/MM/yyyy - HH:mm")</td>
-                                        <td><a href="/Blog/Detail/@comment.BlogId" target="_blank" class="badge badge-secondary">Görüntüle</a></td>
+                                        @if (comment.Status == true)
+                                        {
+                                            <td class="text-center"><i class="fa fa-check text-navy"></i></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center"><i class="fa fa-times text-danger"></i></td>
+                                        }
                                         @if (comment.Status == true)
                                         {
                                             <td><a href="/Admin/Comment/ChangeStatus/@comment.CommentId" class="badge badge-success">Pasif Yap</a></td>
@@ -60,6 +64,7 @@
                                         {
                                             <td><a href="/Admin/Comment/ChangeStatus/@comment.CommentId" class="badge badge-info">Aktif Yap</a></td>
                                         }
+                                        <td><a href="/Blog/Detail/@comment.BlogId" target="_blank" class="badge badge-secondary">Görüntüle</a></td>
                                         <td><a href="/Admin/Comment/Edit/@comment.CommentId" class="badge badge-warning">Düzenle</a></td>
                                         <td><a href="/Admin/Comment/Delete/@comment.CommentId" onclick="return confirm('Yorum silinecek. Onaylıyor musun?')" class="badge badge-danger">Sil</a></td>
                                     </tr>

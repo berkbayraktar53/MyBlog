@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,21 +9,33 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
+        private readonly UserManager<User> _userManager;
         private readonly IUserDal _userDal;
 
-        public UserManager(IUserDal userDal)
+        public UserManager(UserManager<User> userManager, IUserDal userDal)
         {
+            _userManager = userManager;
             _userDal = userDal;
         }
 
-        public void Add(User user)
+        public void Add(User entity)
         {
-            _userDal.Add(user);
+            _userDal.Add(entity);
         }
 
-        public void Delete(User user)
+        public void AddAsync(User user)
         {
-            _userDal.Delete(user);
+            _userManager.CreateAsync(user);
+        }
+
+        public void Delete(User entity)
+        {
+            _userDal.Delete(entity);
+        }
+
+        public void DeleteAsync(User user)
+        {
+            _userManager.DeleteAsync(user);
         }
 
         public User GetById(int userId)
@@ -30,7 +43,7 @@ namespace Business.Concrete
             return _userDal.GetById(userId);
         }
 
-        public List<User> GetLast10WriterList()
+        public List<User> GetLast10UserList()
         {
             return _userDal.GetList().TakeLast(10).OrderByDescending(x => x.Id).ToList();
         }
@@ -45,9 +58,14 @@ namespace Business.Concrete
             return _userDal.GetListWithBlog();
         }
 
-        public void Update(User user)
+        public void Update(User entity)
         {
-            _userDal.Update(user);
+            _userDal.Update(entity);
+        }
+
+        public void UpdateAsync(User user)
+        {
+            _userManager.UpdateAsync(user);
         }
     }
 }

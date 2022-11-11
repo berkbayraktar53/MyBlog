@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
+    [Authorize(Roles = "Writer")]
     public class AboutController : Controller
     {
         private readonly IAboutService _aboutService;

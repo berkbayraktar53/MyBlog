@@ -15,7 +15,7 @@ namespace WebUI.ViewComponents.Blog
 
         public IViewComponentResult Invoke()
         {
-            var result = _blogService.GetListWithCategory().Take(10).ToList();
+            var result = _blogService.GetListByActiveStatus().Take(10).ToList();
             return View(result);
         }
     }

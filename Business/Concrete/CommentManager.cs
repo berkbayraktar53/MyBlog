@@ -14,14 +14,14 @@ namespace Business.Concrete
             _commentDal = commentDal;
         }
 
-        public void Add(Comment comment)
+        public void Add(Comment entity)
         {
-            _commentDal.Add(comment);
+            _commentDal.Add(entity);
         }
 
-        public void Delete(Comment comment)
+        public void Delete(Comment entity)
         {
-            _commentDal.Delete(comment);
+            _commentDal.Delete(entity);
         }
 
         public Comment GetById(int id)
@@ -44,9 +44,9 @@ namespace Business.Concrete
             return _commentDal.GetListWithBlog();
         }
 
-        public void Update(Comment comment)
+        public void Update(Comment entity)
         {
-            _commentDal.Update(comment);
+            _commentDal.Update(entity);
         }
     }
 }

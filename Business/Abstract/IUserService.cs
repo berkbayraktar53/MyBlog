@@ -6,11 +6,10 @@ namespace Business.Abstract
 {
     public interface IUserService : IEntityService<User>
     {
-        void Add(User user);
-        void Delete(User user);
-        void Update(User user);
-        User GetById(int userId);
+        void AddAsync(User user);
+        void DeleteAsync(User user);
+        void UpdateAsync(User user);
         List<User> GetListWithBlog();
-        List<User> GetLast10WriterList();
+        List<User> GetLast10UserList();
     }
 }

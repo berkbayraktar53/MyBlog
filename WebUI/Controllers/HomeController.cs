@@ -17,7 +17,7 @@ namespace WebUI.Controllers
         [AllowAnonymous]
         public IActionResult Index(int page = 1)
         {
-            var values = _blogService.GetListWithCategory().ToPagedList(page, 6);
+            var values = _blogService.GetListWithCategoryAndComment().ToPagedList(page, 6);
             return View(values);
         }
     }

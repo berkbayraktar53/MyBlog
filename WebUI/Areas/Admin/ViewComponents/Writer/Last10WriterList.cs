@@ -14,7 +14,7 @@ namespace WebUI.Areas.Admin.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var values = _userService.GetLast10WriterList();
+            var values = _userService.GetLast10UserList();
             return View(values);
         }
     }

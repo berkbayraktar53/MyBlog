@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using WebUI.Models;
 
 namespace WebUI.Controllers
 {
+    [Authorize(Roles = "Writer")]
     public class WriterController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -80,20 +82,20 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddWriter(WriterProfileImage writerProfileImage, User writer)
+        public IActionResult AddWriter(UserProfileImage userProfileImage, User writer)
         {
-            if (writerProfileImage.Image != null)
+            if (userProfileImage.Image != null)
             {
-                var extension = Path.GetExtension(writerProfileImage.Image.FileName);
+                var extension = Path.GetExtension(userProfileImage.Image.FileName);
                 var newImageName = Guid.NewGuid() + extension;
                 var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterImageFiles/", newImageName);
                 var stream = new FileStream(location, FileMode.Create);
-                writerProfileImage.Image.CopyTo(stream);
+                userProfileImage.Image.CopyTo(stream);
                 writer.ImageUrl = newImageName;
             }
-            writer.Email = writerProfileImage.Email;
-            writer.UserName = writerProfileImage.Name;
-            writer.PasswordHash = writerProfileImage.Password;
+            writer.Email = userProfileImage.Email;
+            writer.UserName = userProfileImage.Name;
+            writer.PasswordHash = userProfileImage.Password;
             _userManager.CreateAsync(writer);
             return RedirectToAction("Dashboard", "Writer");
         }

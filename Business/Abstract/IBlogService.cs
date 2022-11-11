@@ -1,15 +1,11 @@
-﻿using Core.Business.Abstract;
-using Entities.Concrete;
+﻿using Entities.Concrete;
+using Core.Business.Abstract;
 using System.Collections.Generic;
 
 namespace Business.Abstract
 {
     public interface IBlogService : IEntityService<Blog>
     {
-        void Add(Blog blog);
-        void Delete(Blog blog);
-        void Update(Blog blog);
-        Blog GetById(int id);
         List<Blog> GetListWithCategory();
         List<Blog> GetListById(int blogId);
         List<Blog> GetListByUser(int userId);
@@ -20,6 +16,7 @@ namespace Business.Abstract
         List<Blog> GetSearchResult(string query);
         List<Blog> GetListByCategory(int categoryId);
         List<Blog> GetListWithCategoryAndUser();
+        List<Blog> GetListWithCategoryAndComment();
 
     }
 }

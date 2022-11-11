@@ -1,6 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Business.Abstract;
-using Business.Concrete;
 using Business.ValidationRules.FluentValidation;
 using Entities.Concrete;
 using FluentValidation.Results;
@@ -141,6 +140,7 @@ namespace WebUI.Areas.Admin.Controllers
 
         public IActionResult ChangeStatus(int id)
         {
+            var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             var values = _messageService.GetById(id);
             if (values.Status == true)
             {
@@ -152,7 +152,14 @@ namespace WebUI.Areas.Admin.Controllers
             }
             _messageService.Update(values);
             _notyfService.Success("Durum Değiştirildi");
-            return RedirectToAction("InBox", "Message");
+            if (values.ReceiverId == userId)
+            {
+                return RedirectToAction("InBox", "Message");
+            }
+            else
+            {
+                return RedirectToAction("SendBox", "Message");
+            }
         }
 
         public IActionResult Delete(int id)

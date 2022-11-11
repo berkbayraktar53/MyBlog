@@ -13,7 +13,7 @@ namespace WebUI.Areas.Admin.Controllers
     public class SettingController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private INotyfService _notyfService;
+        private readonly INotyfService _notyfService;
 
         public SettingController(UserManager<User> userManager, INotyfService notyfService)
         {
@@ -51,7 +51,7 @@ namespace WebUI.Areas.Admin.Controllers
                 }
                 else
                 {
-                    _notyfService.Error("Yeni Şifreniz ile Şifre Tekrar Birbiriyle Uyuşmuyor");
+                    _notyfService.Error("Şifreler Birbiriyle Uyuşmuyor");
                     return View(changePasswordViewModel);
                 }
             }

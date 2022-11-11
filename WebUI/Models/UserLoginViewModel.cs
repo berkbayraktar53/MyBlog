@@ -4,10 +4,10 @@ namespace WebUI.Models
 {
     public class UserLoginViewModel
     {
-        [Required(ErrorMessage = "Lütfen kullanıcı adını giriniz")]
+        [Required(ErrorMessage = "Lütfen kullanıcı adı giriniz")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Lütfen şifrenizi giriniz")]
+        [Required(ErrorMessage = "Lütfen şifre giriniz")]
         public string Password { get; set; }
     }
 }

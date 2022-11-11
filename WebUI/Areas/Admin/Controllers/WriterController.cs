@@ -3,18 +3,14 @@ using Business.ValidationRules.FluentValidation;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-using System;
 using FluentValidation.Results;
 using AspNetCoreHero.ToastNotification.Abstractions;
-using Business.Concrete;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Linq;
 using WebUI.Models;
 using WebUI.Areas.Admin.Models;
-using FluentValidation;
 
 namespace WebUI.Areas.Admin.Controllers
 {
@@ -88,7 +84,7 @@ namespace WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(WriterUpdateViewModel writerUpdateViewModel)
         {
-            var user = _userService.GetById(writerUpdateViewModel.Id);
+            var user = _userManager.FindByIdAsync(writerUpdateViewModel.Id.ToString()).Result;
             user.Id = writerUpdateViewModel.Id;
             user.ImageUrl = writerUpdateViewModel.ImageUrl;
             user.NameSurname = writerUpdateViewModel.NameSurname;
@@ -108,18 +104,20 @@ namespace WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "Writer");
         }
 
-        public IActionResult ChangeStatus(int id)
+        public async Task<IActionResult> ChangeStatus(int id)
         {
-            var values = _userService.GetById(id);
-            if (values.Status == true)
+            var user = _userManager.FindByIdAsync(id.ToString()).Result;
+            if (user.Status == true)
             {
-                values.Status = false;
+                user.Status = false;
+                await _userManager.RemoveFromRoleAsync(user, "Writer");
             }
             else
             {
-                values.Status = true;
+                user.Status = true;
+                await _userManager.AddToRoleAsync(user, "Writer");
             }
-            _userService.Update(values);
+            await _userManager.UpdateAsync(user);
             _notyfService.Success("Durum Değiştirildi");
             return RedirectToAction("Index", "Writer");
         }

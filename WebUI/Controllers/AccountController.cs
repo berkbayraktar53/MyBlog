@@ -12,12 +12,14 @@ namespace WebUI.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager; // Giriş yapmak için gereken Microsoft kütüphanesi
         private readonly UserManager<User> _userManager; // Kayıt olmak için gereken Microsoft kütüphanesi
         private readonly INotyfService _notyfService;
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, INotyfService notyfService)
+        public AccountController(RoleManager<Role> roleManager, SignInManager<User> signInManager, UserManager<User> userManager, INotyfService notyfService)
         {
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _userManager = userManager;
             _notyfService = notyfService;
@@ -36,6 +38,11 @@ namespace WebUI.Controllers
             if (result.Succeeded)
             {
                 var user = _userManager.FindByNameAsync(userLoginViewModel.UserName).Result;
+                if (user.Status == false)
+                {
+                    _notyfService.Information("Hesabınız Admin Onayından Sonra Aktif Olacaktır. Lütfen Bekleyiniz...");
+                    return RedirectToAction("Login", "Account");
+                }
                 var getRoles = _userManager.GetRolesAsync(user).Result;
                 if (getRoles.Contains("Admin"))
                 {
@@ -75,7 +82,9 @@ namespace WebUI.Controllers
                 var result = await _userManager.CreateAsync(user, userRegisterViewModel.Password);
                 if (result.Succeeded)
                 {
-                    _notyfService.Success("Kayıt Başarılı");
+                    await _userManager.AddToRoleAsync(user, "Writer");
+                    _notyfService.Success("Kayıt Başarılı.");
+                    _notyfService.Information("Hesabınız Admin Onayından Sonra Aktif Olacaktır. Lütfen Bekleyiniz...");
                     return RedirectToAction("Login", "Account");
                 }
                 else

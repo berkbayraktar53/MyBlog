@@ -25,13 +25,21 @@
                                         <th>Mail Adresi</th>
                                         <th>Kullanıcı Adı</th>
                                         <th class="text-center">Durum</th>
+                                        <th class="text-center">Durum Değiştir</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var user in Model)
                                     {
                                         <tr>
-                                            <td class="text-center"><img src="@user.ImageUrl" class="btn-circle" /></td>
+                                            @if (user.ImageUrl == null)
+                                            {
+                                                <td class="text-center"><img src="~/templates/admin/img/profile1.png" class="btn-circle" /></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center"><img src="@user.ImageUrl" class="btn-circle" /></td>
+                                            }
                                             <td>@user.NameSurname</td>
                                             <td>@user.Email</td>
                                             <td>@user.UserName</td>
@@ -43,6 +51,15 @@
                                             else
                                             {
                                                 <td class="text-center"><i class="fa fa-times text-danger"></i></td>
+                                            }
+                                            @if (user.Status == true)
+                                            {
+                                                <td class="text-center"><a href="/Admin/Dashboard/ChangeStatus/@user.Id" class="badge badge-success">Pasif Yap</a></td>
+
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center"><a href="/Admin/Dashboard/ChangeStatus/@user.Id" class="badge badge-info">Aktif Yap</a></td>
                                             }
                                         </tr>
                                     }

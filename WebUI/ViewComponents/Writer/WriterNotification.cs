@@ -14,7 +14,7 @@ namespace WebUI.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var values = _notificationService.GetList();
+            var values = _notificationService.GetListByActiveStatus();
             return View(values);
         }
     }

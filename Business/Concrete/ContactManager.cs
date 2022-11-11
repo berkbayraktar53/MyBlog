@@ -15,14 +15,14 @@ namespace Business.Concrete
             _contactDal = contactDal;
         }
 
-        public void Add(Contact contact)
+        public void Add(Contact entity)
         {
-            _contactDal.Add(contact);
+            _contactDal.Add(entity);
         }
 
-        public void Delete(Contact contact)
+        public void Delete(Contact entity)
         {
-            _contactDal.Delete(contact);
+            _contactDal.Delete(entity);
         }
 
         public Contact GetById(int id)
@@ -40,9 +40,9 @@ namespace Business.Concrete
             return _contactDal.GetList().TakeLast(5).OrderByDescending(x => x.AddedDate).ToList();
         }
 
-        public void Update(Contact contact)
+        public void Update(Contact entity)
         {
-            _contactDal.Update(contact);
+            _contactDal.Update(entity);
         }
     }
 }

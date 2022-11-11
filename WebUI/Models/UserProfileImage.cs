@@ -1,11 +1,8 @@
-﻿using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace WebUI.Models
 {
-    public class WriterProfileImage
+    public class UserProfileImage
     {
         public int WriterId { get; set; }
         public IFormFile Image { get; set; }
