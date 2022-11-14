@@ -84,8 +84,7 @@ namespace WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(WriterUpdateViewModel writerUpdateViewModel)
         {
-            var user = _userManager.FindByIdAsync(writerUpdateViewModel.Id.ToString()).Result;
-            user.Id = writerUpdateViewModel.Id;
+            var user = _userManager.FindByNameAsync(writerUpdateViewModel.UserName).Result;
             user.ImageUrl = writerUpdateViewModel.ImageUrl;
             user.NameSurname = writerUpdateViewModel.NameSurname;
             user.Email = writerUpdateViewModel.Email;

@@ -97,6 +97,7 @@ namespace WebUI.Areas.Admin.Controllers
             ValidationResult validationResult = commentValidator.Validate(comment);
             if (validationResult.IsValid)
             {
+                comment.AddedDate = DateTime.Now;
                 comment.Status = true;
                 _commentService.Update(comment);
                 _notyfService.Success("Yorum Güncellendi");

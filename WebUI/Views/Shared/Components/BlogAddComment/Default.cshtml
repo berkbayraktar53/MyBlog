@@ -1,0 +1,13 @@
+﻿@model Blog
+<div class="comment-top">
+    <div class="comment-bottom">
+        <form asp-action="AddComment" asp-controller="Comment" method="post">
+            <input type="hidden" asp-for="BlogId" />
+            <input class="form-control" type="text" name="NameSurname" style="color:black" placeholder="Ad Soyad" required="" autocomplete="off /">
+            <input class="form-control" type="text" name="Email" style="color:black" placeholder="Email" required="" autocomplete="off" />
+            <input class="form-control" type="text" name="Subject" style="color:black" placeholder="Konu" required="" autocomplete="off" />
+            <textarea class="form-control" name="Message" style="color:black" placeholder="Mesaj..." required="" autocomplete="off"></textarea>
+            <button type="submit" class="btn btn-primary submit">Gönder</button>
+        </form>
+    </div>
+</div>

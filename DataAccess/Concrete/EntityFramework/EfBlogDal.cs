@@ -10,6 +10,12 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfBlogDal : EfEntityRepositoryBase<Blog, DatabaseContext>, IBlogDal
     {
+        public List<Blog> GetBlogWithCategoryAndComment(int blogId)
+        {
+            var context = new DatabaseContext();
+            return context.Blogs.Where(z => z.BlogId == blogId).Include(x => x.Category).Include(y => y.Comments).ToList();
+        }
+
         public List<Blog> GetListWithCategory()
         {
             var context = new DatabaseContext();

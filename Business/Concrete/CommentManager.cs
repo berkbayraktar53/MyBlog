@@ -2,6 +2,7 @@
 using Entities.Concrete;
 using DataAccess.Abstract;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -36,7 +37,7 @@ namespace Business.Concrete
 
         public List<Comment> GetListByBlog(int blogId)
         {
-            return _commentDal.GetList(x => x.BlogId == blogId);
+            return _commentDal.GetList(x => x.BlogId == blogId).Where(x => x.Status == true).OrderByDescending(x => x.CommentId).ToList();
         }
 
         public List<Comment> GetListWithBlog()

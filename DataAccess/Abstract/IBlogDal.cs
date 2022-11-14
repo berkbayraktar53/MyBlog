@@ -6,6 +6,7 @@ namespace DataAccess.Abstract
 {
     public interface IBlogDal : IEntityRepository<Blog>
     {
+        List<Blog> GetBlogWithCategoryAndComment(int blogId);
         List<Blog> GetListWithCategory();
         List<Blog> GetSearchResult(string query);
         List<Blog> GetListWithCategoryByUser(int userId);

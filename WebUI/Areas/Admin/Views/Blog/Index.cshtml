@@ -32,6 +32,7 @@
                                     <th>Blog Başlığı</th>
                                     <th>Kategori</th>
                                     <th>Yazar</th>
+                                    <th>Okunma Sayısı</th>
                                     <th>Düzenlenme Tarihi</th>
                                     <th>Durum</th>
                                     <th>Durum Değiştir</th>
@@ -49,6 +50,7 @@
                                         <td>@blog.Title</td>
                                         <td>@blog.Category.CategoryName</td>
                                         <td>@blog.User.NameSurname</td>
+                                        <td>@blog.TotalViews</td>
                                         <td>@blog.ModifiedDate.ToString("dd/MM/yyyy - HH:mm")</td>
                                         @if (blog.Status == true)
                                         {

@@ -34,7 +34,7 @@ namespace WebUI.Controllers
         [AllowAnonymous]
         public IActionResult Index(int page = 1)
         {
-            var values = _blogService.GetListWithCategoryAndComment().ToPagedList(page, 12);
+            var values = _blogService.GetListWithCategoryAndComment().ToPagedList(page, 6);
             return View(values);
         }
 
@@ -42,12 +42,13 @@ namespace WebUI.Controllers
         public IActionResult Detail(int id)
         {
             @ViewBag.commentId = id;
-            var blogStatus = _blogService.GetById(id).Status;
-            if (blogStatus == false)
+            var blogStatus = _blogService.GetById(id);
+            ViewBag.blogId = blogStatus.BlogId;
+            if (blogStatus.Status == false)
             {
                 return RedirectToAction("Error404", "ErrorPage");
             }
-            var values = _blogService.GetListById(id);
+            var values = _blogService.GetBlogWithCategoryAndComment(id);
             return View(values);
         }
 
@@ -134,7 +135,7 @@ namespace WebUI.Controllers
             ValidationResult result = blogValidator.Validate(blog);
             if (result.IsValid)
             {
-                blog.AddedDate = DateTime.Now;
+                blog.ModifiedDate = DateTime.Now;
                 blog.Status = true;
                 _blogService.Update(blog);
                 _notyfService.Success("Blog Güncellendi");
@@ -169,6 +170,8 @@ namespace WebUI.Controllers
         public IActionResult List(int id)
         {
             var values = _blogService.GetListByCategory(id).ToPagedList(1, 6);
+            var category = _categoryService.GetById(id);
+            ViewBag.categoryName = category.CategoryName;
             return View(values);
         }
     }

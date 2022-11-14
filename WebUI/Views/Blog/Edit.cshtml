@@ -17,6 +17,8 @@
         <div class="card-body">
             @using (Html.BeginForm("Edit", "Blog", FormMethod.Post))
             {
+                @Html.HiddenFor(x => x.AddedDate, new { @class = "form-control" })
+                @Html.HiddenFor(x => x.ModifiedDate, new { @class = "form-control" })
                 <div class="form-group" hidden>
                     @Html.TextBoxFor(x => x.BlogId, new { @class = "form-control" })
                     @Html.TextBoxFor(x => x.UserId, new { @class = "form-control" })

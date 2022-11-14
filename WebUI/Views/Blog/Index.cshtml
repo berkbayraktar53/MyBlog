@@ -8,7 +8,7 @@
 }
 
 <section class="main-content-w3layouts-agileits">
-    <h3 class="tittle">Bloglar</h3>
+    <h3 class="tittle">&nbsp;</h3>
     <div class="container">
         <div class="inner-sec">
             <div class="left-blog-info-w3layouts-agileits text-left">
@@ -28,7 +28,7 @@
                                     </li>
                                     <li>
                                         <a>
-                                            <i class="far fa-comment"></i> @blog.Comments.Count()
+                                            <i class="far fa-comment"></i> @blog.Comments.Where(x=>x.Status == true).Count()
                                         </a>
                                     </li>
                                     <li>

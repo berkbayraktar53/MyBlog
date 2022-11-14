@@ -113,12 +113,22 @@ namespace WebUI.Areas.Admin.Controllers
             if (validationResult.IsValid)
             {
                 var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
-                message.ReceiverId = userId;
-                message.ModifiedDate = DateTime.Now;
-                message.Status = true;
-                _messageService.Update(message);
-                _notyfService.Success("Mesaj Güncellendi");
-                return RedirectToAction("InBox", "Message");
+                if (userId == message.ReceiverId)
+                {
+                    message.ModifiedDate = DateTime.Now;
+                    message.Status = true;
+                    _messageService.Update(message);
+                    _notyfService.Success("Mesaj Güncellendi");
+                    return RedirectToAction("InBox", "Message");
+                }
+                else
+                {
+                    message.ModifiedDate = DateTime.Now;
+                    message.Status = true;
+                    _messageService.Update(message);
+                    _notyfService.Success("Mesaj Güncellendi");
+                    return RedirectToAction("SendBox", "Message");
+                }
             }
             else
             {

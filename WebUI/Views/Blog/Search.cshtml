@@ -26,16 +26,16 @@
                                             <i class="far fa-calendar-alt"></i> @blog.AddedDate.ToString("dd/MM/yyyy")
                                         </a>
                                     </li>
-                                    <li>
+                                    @*<li>
                                         <a>
-                                            <i class="far fa-comment"></i> 21
+                                            <i class="far fa-comment"></i> @blog.Comments.Where(x=>x.Status == true).Count()
                                         </a>
                                     </li>
                                     <li>
                                         <a>
-                                            <i class="fas fa-list"></i> @blog.CategoryId
+                                            <i class="fas fa-list"></i> @blog.Category.CategoryName
                                         </a>
-                                    </li>
+                                    </li>*@
 
                                 </ul>
                                 <h5 class="card-title">

@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace WebUI.Controllers
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;
+        private readonly INotyfService _notyfService;
 
-        public CommentController(ICommentService commentService)
+        public CommentController(ICommentService commentService, INotyfService notyfService)
         {
             _commentService = commentService;
+            _notyfService = notyfService;
         }
 
         public IActionResult Index()
@@ -22,19 +25,20 @@ namespace WebUI.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult AddComment()
+        public PartialViewResult AddComment(int blogId)
         {
+            ViewBag.id = blogId;
             return PartialView();
         }
 
         [HttpPost]
         public IActionResult AddComment(Comment comment)
         {
-            comment.AddedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            comment.AddedDate = DateTime.Now;
             comment.Status = true;
-            comment.BlogId = 2;
             _commentService.Add(comment);
-            return RedirectToAction("Index", "Blog");
+            _notyfService.Success("Yorumunuz eklendi");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -71,7 +71,7 @@ namespace WebUI.Controllers
             values.ImageUrl = model.ImageUrl;
             values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.Password);
             await _userManager.UpdateAsync(values);
-            _notyfService.Success("Yazar güncellendi");
+            _notyfService.Success("Şifren Güncellendi");
             return RedirectToAction("Dashboard", "Writer");
         }
 

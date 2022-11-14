@@ -24,7 +24,7 @@
                                     <td style="text-align:center"><img src="@blog.Image" class="mr-2" alt="image"></td>
                                     <td>@blog.Title</td>
                                     <td>@blog.Content.Substring(0, @blog.Content.Substring(0, 50).LastIndexOf(" ")) ...</td>
-                                    <td> @(((DateTime)blog.ModifiedDate).ToString("dd/MM/yyyy")) </td>
+                                    <td> @(((DateTime)blog.AddedDate).ToString("dd/MM/yyyy")) </td>
                                     <td><a href="/Blog/Detail/@blog.BlogId" class="badge badge-success" target="_blank">Görüntüle</a></td>
                                 </tr>
                             }

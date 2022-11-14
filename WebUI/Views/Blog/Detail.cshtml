@@ -5,6 +5,7 @@
 }
 
 <section class="banner-bottom">
+    <h3 class="tittle">&nbsp;</h3>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
@@ -13,7 +14,7 @@
                     <div class="blog-grid-top">
                         <div class="b-grid-top">
                             <div class="blog_info_left_grid">
-                                <a href="single.html">
+                                <a>
                                     <img src="@blog.Image" class="img-fluid" style="width:730px;height:390px;" alt="Resim bulunamadı">
                                 </a>
                             </div>
@@ -21,17 +22,17 @@
                                 <ul>
                                     <li>
                                         <a href="#">
-                                            <i class="far fa-calendar-alt"></i> @blog.AddedDate.ToShortDateString()
+                                            <i class="far fa-calendar-alt"></i> @blog.AddedDate.ToString("dd/MM/yyyy")
                                         </a>
                                     </li>
                                     <li class="mx-2">
                                         <a href="#">
-                                            <i class="far fa-thumbs-up"></i> 10 Beğeni
+                                            <i class="far fa-comment"></i> @blog.Comments.Where(x=>x.Status).Count() Yorum
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <i class="far fa-comment"></i> 5 Yorum
+                                            <i class="fas fa-eye"></i> @blog.Category.CategoryName
                                         </a>
                                     </li>
                                 </ul>
@@ -40,11 +41,11 @@
                         <h3>
                             <a href="single.html">@blog.Title</a>
                         </h3>
-                        <p>@blog.Content</p>
+                        <p>@Html.Raw(@blog.Content)</p>
                     </div>
                 }
-                @await Component.InvokeAsync("CommentListByBlog",new{id = ViewBag.commentId})
-                @await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
+                @await Component.InvokeAsync("CommentListByBlog", new{id = ViewBag.commentId})
+                @await Component.InvokeAsync("BlogAddComment", new{blogId = ViewBag.blogId})
             </div>
             <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
                 <div class="right-blog-info text-left">
@@ -59,7 +60,7 @@
                     </div>
                     @await Component.InvokeAsync("BlogLast3Post")
                     @*<div class="tech-btm">
-                        <img src="~/templates/blog/images/banner1.jpg" class="card-img-top img-fluid" style="height:170px;width:330px;" alt="">
+                    <img src="~/templates/blog/images/banner1.jpg" class="card-img-top img-fluid" style="height:170px;width:330px;" alt="">
                     </div>*@
                     <hr />
                     <div class="tech-btm">

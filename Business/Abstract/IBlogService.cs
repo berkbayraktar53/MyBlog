@@ -6,6 +6,7 @@ namespace Business.Abstract
 {
     public interface IBlogService : IEntityService<Blog>
     {
+        List<Blog> GetBlogWithCategoryAndComment(int blogId);
         List<Blog> GetListWithCategory();
         List<Blog> GetListById(int blogId);
         List<Blog> GetListByUser(int userId);
