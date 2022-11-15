@@ -8,7 +8,7 @@
 }
 
 <section class="main-content-w3layouts-agileits">
-    <h3 class="tittle">@ViewBag.categoryName Kategorisindeki Bloglar</h3>
+    <h3 class="tittle">@ViewBag.categoryName Kategorisindeki Bloglar</h3><br />
     <div class="container">
         <div class="inner-sec">
             <div class="left-blog-info-w3layouts-agileits text-left">
@@ -26,7 +26,7 @@
                                             <i class="far fa-calendar-alt"></i> @blog.AddedDate.ToString("dd/MM/yyyy")
                                         </a>
                                     </li>
-                                    <li>
+                                    @*<li>
                                         <a>
                                             <i class="far fa-comment"></i> 21
                                         </a>
@@ -35,8 +35,7 @@
                                         <a>
                                             <i class="fas fa-list"></i> @blog.Category.CategoryName
                                         </a>
-                                    </li>
-
+                                    </li>*@
                                 </ul>
                                 <h5 class="card-title">
                                     <a href="/Blog/Detail/@blog.BlogId">@blog.Title</a>

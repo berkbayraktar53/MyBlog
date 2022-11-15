@@ -6,19 +6,19 @@
 
 <section class="main-content-w3layouts-agileits">
     <div class="container">
-        <h3 class="tittle">Hakkımda</h3>
+        <h3 class="tittle">Hakkımda</h3><br />
         <div class="row inner-sec">
             <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
                 @foreach (var about in Model)
                 {
                     <div class="blog-grid-top">
                         <div class="blog_info_left_grid">
-                            <a href="single.html">
+                            <a href="~/WriterImageFiles/about_image.jpg">
                                 <img src="@about.Image" class="img-fluid" style="width:730px;height:300px;" alt="Resim bulunamadı">
                             </a>
                         </div>
                         <h3>@about.Title</h3>
-                        <p>@about.Content</p>
+                        <p>@Html.Raw(@about.Content)</p>
                     </div>
                 }
             </div>

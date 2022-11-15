@@ -17,7 +17,7 @@ namespace WebUI.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            var values = _aboutService.GetList();
+            var values = _aboutService.GetListByActiveStatus();
             return View(values);
         }
 

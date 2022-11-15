@@ -17,10 +17,7 @@ namespace Business.ValidationRules.FluentValidation
                 .MinimumLength(5).WithMessage("Lütfen en az 5 karakter giriniz")
                 .MaximumLength(50).WithMessage("Lütfen 50 karakterden az giriniz");
 
-            RuleFor(x => x.Content)
-                .NotEmpty().WithMessage("Lütfen açıklama giriniz")
-                .MinimumLength(5).WithMessage("Lütfen en az 5 karakter giriniz")
-                .MaximumLength(250).WithMessage("Lütfen 250 karakterden az giriniz");
+            RuleFor(x => x.Content).NotEmpty().WithMessage("Lütfen açıklama giriniz");
         }
     }
 }

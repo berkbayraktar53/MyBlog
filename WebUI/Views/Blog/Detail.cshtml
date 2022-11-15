@@ -15,7 +15,7 @@
                         <div class="b-grid-top">
                             <div class="blog_info_left_grid">
                                 <a>
-                                    <img src="@blog.Image" class="img-fluid" style="width:730px;height:390px;" alt="Resim bulunamadı">
+                                    <img src="@blog.Image" class="img-fluid" style="width:730px;height:300px;" alt="Resim bulunamadı">
                                 </a>
                             </div>
                             <div class="blog-info-middle">
@@ -30,9 +30,14 @@
                                             <i class="far fa-comment"></i> @blog.Comments.Where(x=>x.Status).Count() Yorum
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="mx-2">
                                         <a href="#">
                                             <i class="fas fa-eye"></i> @blog.Category.CategoryName
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fas fa-edit"></i> @ViewBag.userName
                                         </a>
                                     </li>
                                 </ul>

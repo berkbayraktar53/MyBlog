@@ -49,6 +49,7 @@ namespace WebUI.Controllers
                 return RedirectToAction("Error404", "ErrorPage");
             }
             var values = _blogService.GetBlogWithCategoryAndComment(id);
+            ViewBag.userName = _userService.GetById(values[0].UserId).NameSurname;
             return View(values);
         }
 
@@ -81,6 +82,7 @@ namespace WebUI.Controllers
             {
                 var userId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id;
                 blog.AddedDate = DateTime.Now;
+                blog.ModifiedDate = DateTime.Now;
                 blog.Status = true;
                 blog.UserId = userId;
                 _blogService.Add(blog);
